@@ -13,7 +13,7 @@
      about.adoptionForm
      about.whatsappNumber
 ============================================================ */
-
+import './footer.css';
 import {
   InstagramIcon,
   FacebookIcon,

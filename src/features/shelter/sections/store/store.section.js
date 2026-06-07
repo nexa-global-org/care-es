@@ -10,6 +10,7 @@
      about.shelterImage
      about.shelterName
 ============================================================ */
+import './store.css';
 
 const IMPACT_CARDS = [
   {

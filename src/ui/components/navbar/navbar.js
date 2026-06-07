@@ -9,7 +9,7 @@
    about.shelterLogo
    about.whatsappNumber
 ============================================================ */
-
+import './navbar.css';
 export const NavbarUI = {
 
   render(about) {

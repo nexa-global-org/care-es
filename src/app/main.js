@@ -3,6 +3,7 @@ import '../ui/styles/variables.css';
 import '../ui/styles/global.css';
 import '../ui/styles/animations.css';
 import '../ui/styles/utilities.css';
+import '../ui/styles/button.css';
 
 import { state } from '../core/state.js';
 import { router } from '../core/router.js';
