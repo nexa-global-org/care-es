@@ -1,37 +1,20 @@
-
 import './about.css';
+
 export function renderAbout(about) {
 
-  const shelterName =
-    about.shelterName || 'Nuestro refugio';
-
-  const story =
-    about.shelterStory || '';
-
-  const storyImage =
-    about.storyImage || '';
-
-  const address =
-    about.address || '';
-
-  const animalsSaved =
-    about.animalsSaved || '0';
-
-  const yearsActive =
-    about.yearsActive || '0';
-
-  const volunteers =
-    about.volunteers || '0';
+  const shelterName  = about.shelterName  || 'Nuestro refugio';
+  const story        = about.shelterStory || '';
+  const storyImage   = about.storyImage   || '';
+  const address      = about.address      || '';
+  const animalsSaved = about.animalsSaved || '0';
+  const yearsActive  = about.yearsActive  || '0';
+  const volunteers   = about.volunteers   || '0';
+  const volunteersForm = about.volunteersForm || '#';
 
   return /* html */ `
-    <section
-      id="nosotros"
-      class="historia-section"
-    >
+    <section id="nosotros" class="historia-section">
 
-      <div
-        class="historia-inner reveal-section"
-      >
+      <div class="historia-inner reveal-section">
 
         <div class="historia-grid">
 
@@ -42,9 +25,7 @@ export function renderAbout(about) {
             </span>
 
             <h2 class="historia-titulo">
-              Nacimos del amor,
-              <br>
-              no del deber
+              Nacimos del amor,<br>no del deber
             </h2>
 
             <p class="historia-body">
@@ -54,34 +35,22 @@ export function renderAbout(about) {
             <div class="historia-stats">
 
               <div class="stat-item">
-                <span class="stat-num">
-                  ${animalsSaved}
-                </span>
-                <span class="stat-label">
-                  Animales rescatados
-                </span>
+                <span class="stat-num">${animalsSaved}</span>
+                <span class="stat-label">Animales rescatados</span>
               </div>
 
               <div class="stat-divider"></div>
 
               <div class="stat-item">
-                <span class="stat-num">
-                  ${yearsActive}
-                </span>
-                <span class="stat-label">
-                  Años de amor constante
-                </span>
+                <span class="stat-num">${yearsActive}</span>
+                <span class="stat-label">Años de amor constante</span>
               </div>
 
               <div class="stat-divider"></div>
 
               <div class="stat-item">
-                <span class="stat-num">
-                  ${volunteers}
-                </span>
-                <span class="stat-label">
-                  Voluntarios activos
-                </span>
+                <span class="stat-num">${volunteers}</span>
+                <span class="stat-label">Voluntarios activos</span>
               </div>
 
             </div>
@@ -106,39 +75,24 @@ export function renderAbout(about) {
                 "
               >
 
-              <div
-                class="historia-img-caption"
-              >
-                <span>
-                  ${address}
-                </span>
+              <div class="historia-img-caption">
+                <span>${address}</span>
               </div>
 
             </div>
 
-            <div
+            <a
+              href="${volunteersForm}"
               class="historia-floating-card"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-
-              <span
-                class="floating-emoji"
-              >
-                🐾
-              </span>
-
+              <span class="floating-emoji">🐾</span>
               <div>
-
-                <strong>
-                  ${shelterName}
-                </strong>
-
-                <span>
-                  La que lo inició todo
-                </span>
-
+                <strong>Sé voluntario</strong>
+                <span>Haz clic aquí →</span>
               </div>
-
-            </div>
+            </a>
 
           </div>
 

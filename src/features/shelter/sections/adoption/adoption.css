@@ -1,3 +1,29 @@
+/* ============================================================
+   ADOPTION — adoption.css
+   Sección "Adopta una vida": heading, carrusel infinito,
+   cards de mascotas y fondo decorativo.
+
+   Clases generadas por adoption.section.js:
+     .content-section        → wrapper de la sección
+     .section-heading        → bloque central de texto y CTAs
+     .section-badge          → pill "Adopta una vida"
+     .section-buttons        → fila de botones
+     .primary-btn            → botón primario (button[data-route])
+     .secondary-btn          → botón secundario (a[href])
+     .carousel-wrapper       → contenedor con fades laterales
+     .carousel-track         → flex animado (2 grupos → -50%)
+     .group                  → grupo de cards (se repite ×2)
+     .pet-carousel-card      → card individual
+     .pet-carousel-card--placeholder → estado sin mascotas
+     .card-glow              → blur decorativo interno
+     .pet-card-fallback      → emoji cuando no hay imagen
+     .pet-card-btn           → botón "Conóceme"
+     .pet-placeholder-text   → texto del estado vacío
+     .carrusel-bg            → imagen decorativa inferior
+============================================================ */
+
+/* ── Sección contenedor ──────────────────────────────────── */
+
 .content-section {
   position: relative;
   width: 100%;
@@ -6,7 +32,7 @@
   background: var(--white);
 }
 
-/* ─── Heading ─── */
+/* ── Section heading ─────────────────────────────────────── */
 
 .section-heading {
   max-width: var(--container-md);
@@ -16,7 +42,7 @@
   margin-bottom: var(--space-16);
 }
 
-.section-heading h1 {
+.section-heading h2 {
   font-family: var(--font-display);
   font-size: clamp(3rem, 7vw, 6rem);
   line-height: 0.92;
@@ -36,7 +62,136 @@
   margin-bottom: 2.2rem;
 }
 
-/* ─── Pet carousel card ─── */
+/* ── Badge (compartido con otras secciones) ──────────────── */
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-6);
+  background: var(--purple-bg-10);
+  border: 1px solid var(--purple-border);
+  color: var(--purple-400);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(10px);
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+
+.section-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.section-buttons a,
+.section-buttons button {
+  transition: all var(--dur-slow) var(--ease);
+}
+
+.primary-btn {
+  padding: 1.1rem 1.8rem;
+  border-radius: var(--radius-xs);
+  background: var(--gradient-primary-2);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-btn);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.primary-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.secondary-btn {
+  padding: 1.1rem 1.8rem;
+  border-radius: var(--radius-xs);
+  background: var(--glass-light);
+  border: 1px solid rgba(80, 80, 100, 0.10);
+  backdrop-filter: var(--glass-blur);
+  color: var(--text-mid);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+}
+
+.secondary-btn:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ── Carousel wrapper ────────────────────────────────────── */
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  padding: var(--space-12) 0 12rem;
+  overflow: hidden;
+}
+
+/* Fades laterales */
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 180px;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--white) 20%, transparent);
+}
+
+.carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--white) 20%, transparent);
+}
+
+/* ── Carousel track ──────────────────────────────────────── */
+/*
+  Con 2 grupos idénticos el punto de reset es -50%,
+  que coincide exactamente con el ancho de 1 grupo.
+  La animación hace un loop perfecto sin salto.
+*/
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: infiniteCarousel 36s linear infinite;
+}
+
+.carousel-track:hover,
+.carousel-wrapper:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+/* ── Grupos de cards ─────────────────────────────────────── */
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 0 var(--space-4);
+  flex-shrink: 0;
+}
+
+/* ── Pet carousel card ───────────────────────────────────── */
 
 .pet-carousel-card {
   position: relative;
@@ -64,6 +219,7 @@
     0 1px 4px rgba(var(--purple-mid-rgb), 0.08);
 }
 
+/* Glow interno */
 .card-glow {
   position: absolute;
   width: 260px;
@@ -73,8 +229,10 @@
   background: radial-gradient(rgba(148, 118, 255, 0.14), transparent 68%);
   filter: blur(36px);
   z-index: 0;
+  pointer-events: none;
 }
 
+/* Imagen de la mascota */
 .pet-carousel-card img {
   position: relative;
   width: 210px;
@@ -91,6 +249,7 @@
   transform: translateY(-8px) scale(1.04);
 }
 
+/* Nombre */
 .pet-carousel-card h3 {
   position: relative;
   z-index: 2;
@@ -101,24 +260,19 @@
   letter-spacing: -0.04em;
 }
 
+/* Botón "Conóceme" */
 .pet-card-btn {
   position: relative;
   z-index: 2;
-
   padding: 0.9rem 1.4rem;
-
   border: none;
-
   border-radius: var(--radius-2xs);
-
-  background: rgba(255,255,255,.65);
-
+  background: rgba(255, 255, 255, 0.65);
   color: var(--text-mid);
-
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   font-weight: 700;
-
   cursor: pointer;
-
   transition: all var(--dur-base) var(--ease-std);
 }
 
@@ -128,16 +282,48 @@
   transform: translateY(-2px);
 }
 
-/* ─── Placeholder (sin imagen) ─── */
+/* ── Fallback (sin imagen) ───────────────────────────────── */
 
-.pet-carousel-card--placeholder .pet-carousel-placeholder-emoji {
+.pet-card-fallback {
   position: relative;
   z-index: 2;
-  font-size: 5rem;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--purple-rgb), 0.10),
+    rgba(var(--purple-rgb), 0.04)
+  );
+  font-size: 4rem;
+  color: rgba(var(--purple-rgb), 0.55);
   margin-bottom: var(--space-4);
 }
 
-/* ─── Carrusel bg decorativo ─── */
+/* ── Placeholder card (sin mascotas aún) ─────────────────── */
+
+.pet-carousel-card--placeholder {
+  opacity: 0.85;
+}
+
+.pet-carousel-card--placeholder h3 {
+  font-size: 1.4rem;
+}
+
+.pet-placeholder-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 200px;
+}
+
+/* ── Imagen decorativa fondo ─────────────────────────────── */
 
 .carrusel-bg {
   display: block;
@@ -148,188 +334,77 @@
   margin: -180px auto 0;
   transform-origin: center bottom;
   will-change: transform;
-  filter: drop-shadow(0 -14px 34px rgba(0, 0, 0, .10));
+  filter: drop-shadow(0 -14px 34px rgba(0, 0, 0, 0.10));
   pointer-events: none;
 }
 
-/* ─── Section buttons (adoptar) ─── */
-
-.section-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-}
-
-.section-buttons a {
-  transition: all var(--dur-slow) var(--ease);
-}
-
-.primary-btn {
-  padding: 1.1rem 1.8rem;
-  border-radius: var(--radius-xs);
-  background: var(--gradient-primary-2);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: var(--shadow-btn);
-}
-
-.primary-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-btn-hover);
-}
-
-.secondary-btn {
-  padding: 1.1rem 1.8rem;
-  border-radius: var(--radius-xs);
-  background: var(--glass-light);
-  border: 1px solid rgba(80, 80, 100, 0.10);
-  backdrop-filter: var(--glass-blur);
-  color: var(--text-mid);
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
-
-.secondary-btn:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.95);
-}
-
-.carousel-wrapper {
-  position: relative;
-  width: 100%;
-  padding: var(--space-12) 0 12rem;
-  overflow: hidden;
-}
-
-.carousel-wrapper::before,
-.carousel-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 180px;
-  height: 100%;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.carousel-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, var(--white) 20%, transparent);
-}
-
-.carousel-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, var(--white) 20%, transparent);
-}
-
-.carousel-track {
-  display: flex;
-  width: max-content;
-  animation: infiniteCarousel 36s linear infinite;
-}
-
-.carousel-wrapper:hover .carousel-track {
-  animation-play-state: paused;
-}
-
-.carousel-track:hover {
-  animation-play-state: paused;
-}
-
-.carousel-group {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  padding: 0 var(--space-4);
-  flex-shrink: 0;
-}
-
-.pet-card-fallback {
-  position: relative;
-  z-index: 2;
-
-  width: 180px;
-  height: 180px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: var(--radius-sm);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(var(--purple-rgb), .10),
-      rgba(var(--purple-rgb), .04)
-    );
-
-  font-size: 4rem;
-
-  color:
-    rgba(var(--purple-rgb), .55);
-
-  margin-bottom: var(--space-4);
-}
-
-.pet-placeholder-text {
-  position: relative;
-  z-index: 2;
-
-  text-align: center;
-
-  font-size: .9rem;
-
-  color: var(--text-muted);
-
-  line-height: 1.6;
-}
-
-.pet-carousel-card.empty {
-  opacity: .85;
-}
-
-.pet-carousel-card.empty h3 {
-  font-size: 1.4rem;
-}
-
-
+/* ── Keyframe carrusel ───────────────────────────────────── */
 
 @keyframes infiniteCarousel {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
+/* ── Responsive ──────────────────────────────────────────── */
+
 @media (max-width: 768px) {
-  .carousel-wrapper { padding-bottom: var(--space-24); }
-  .carousel-track { animation: infiniteCarousel 28s linear infinite; }
-  .carousel-group {
+
+  .content-section {
+    padding: var(--space-16) 0 0;
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-12);
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+  }
+
+  .section-heading p {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    width: 90%;
+  }
+
+  .section-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .section-buttons a,
+  .section-buttons button {
+    width: min(320px, 90%);
+    text-align: center;
+    justify-content: center;
+  }
+
+  .carousel-wrapper {
+    padding-bottom: var(--space-24);
+  }
+
+  .carousel-track {
+    animation-duration: 28s;
+  }
+
+  .group {
     gap: 1.2rem;
   }
-}
-
-@media (max-width: 480px) {
-  .carousel-track { animation: infiniteCarousel 22s linear infinite; }
-}
-
-
-@media (max-width: 768px) {
-  .content-section { padding: var(--space-16) 0 0; }
-  .section-heading { margin-bottom: var(--space-12); }
-  .section-heading h1 { font-size: clamp(2.8rem, 12vw, 4.5rem); }
-  .section-heading p { font-size: 1.02rem; line-height: 1.7; width: 90%; }
 
   .pet-carousel-card {
     flex: 0 0 220px;
     height: 320px;
     border-radius: 28px;
   }
-  .pet-carousel-card img { width: 160px; height: 160px; }
-  .pet-carousel-card h3 { font-size: 1.7rem; }
+
+  .pet-carousel-card img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .pet-carousel-card h3 {
+    font-size: 1.7rem;
+  }
 
   .carrusel-bg {
     width: 100vw;
@@ -341,9 +416,22 @@
 }
 
 @media (max-width: 480px) {
-  .pet-carousel-card { flex: 0 0 200px; height: 300px; }
-  .carrusel-bg { width: 100vw; margin: -80px 0 0 0; }
+
+  .pet-carousel-card {
+    flex: 0 0 200px;
+    height: 300px;
+  }
+
+  .carousel-track {
+    animation-duration: 22s;
+  }
+
+  .carrusel-bg {
+    margin: -80px 0 0 0;
+  }
 }
+
+/* ── Accesibilidad ───────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -355,5 +443,4 @@
   .pet-carousel-card img {
     transition: none;
   }
-
 }

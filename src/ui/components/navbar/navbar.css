@@ -1,6 +1,6 @@
-/* ==========================================================
-   NAVBAR
-========================================================== */
+/* ============================================================
+   NAVBAR — navbar.css
+============================================================ */
 
 .nav {
   position: fixed;
@@ -18,7 +18,6 @@
   justify-content: space-between;
 
   background: rgba(255, 255, 255, 0.82);
-
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
@@ -30,13 +29,10 @@
 }
 
 .nav.scrolled {
-  box-shadow:
-    0 4px 30px rgba(var(--purple-dark-rgb), 0.10);
+  box-shadow: 0 4px 30px rgba(var(--purple-dark-rgb), 0.10);
 }
 
-/* ==========================================================
-   LOGO
-========================================================== */
+/* ── Logo ────────────────────────────────────────────────── */
 
 .nav-logo {
   display: flex;
@@ -48,7 +44,6 @@
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 1.3rem;
-
   letter-spacing: -0.04em;
   color: var(--text-primary);
 }
@@ -56,28 +51,8 @@
 .nav-logo-img {
   width: 40px;
   height: 40px;
-
   object-fit: cover;
-
   border-radius: 50%;
-
-  flex-shrink: 0;
-}
-
-.nav-logo-paw {
-  width: 30px;
-  height: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: var(--radius-4xs);
-
-  background: var(--gradient-primary);
-
-  font-size: 0.9rem;
-
   flex-shrink: 0;
 }
 
@@ -85,9 +60,7 @@
   white-space: nowrap;
 }
 
-/* ==========================================================
-   MENU DESKTOP
-========================================================== */
+/* ── Menu desktop ────────────────────────────────────────── */
 
 .nav-menu {
   display: flex;
@@ -99,54 +72,46 @@
   display: flex;
   align-items: center;
   gap: var(--space-8);
-
   list-style: none;
 }
 
 .nav-links a {
   font-size: 0.9rem;
   font-weight: 600;
-
   color: var(--text-muted);
-
-  transition:
-    color var(--dur-fast) var(--ease-std);
+  transition: color var(--dur-fast) var(--ease-std);
 }
 
 .nav-links a:hover {
   color: var(--text-primary);
 }
 
+/* ── Botón donar ─────────────────────────────────────────── */
+
 .nav-donar {
   padding: 0.62rem 1.3rem;
-
   border-radius: var(--radius-3xs);
-
   background: var(--gradient-primary);
-
   color: var(--white);
-
   font-size: 0.88rem;
   font-weight: 700;
-
-  box-shadow:
-    0 8px 22px rgba(var(--purple-rgb), 0.28);
-
+  box-shadow: 0 8px 22px rgba(var(--purple-rgb), 0.28);
   transition:
     transform var(--dur-slow) var(--ease),
     box-shadow var(--dur-slow) var(--ease);
+  white-space: nowrap;
 }
 
 .nav-donar:hover {
   transform: translateY(-3px);
-
-  box-shadow:
-    0 16px 34px rgba(var(--purple-rgb), 0.40);
+  box-shadow: 0 16px 34px rgba(var(--purple-rgb), 0.40);
 }
 
-/* ==========================================================
-   HAMBURGER
-========================================================== */
+/* ── Hamburger toggle ────────────────────────────────────── */
+/*
+  Oculto en desktop. El JS añade/quita .nav-menu-open
+  en #navMenu para mostrar/ocultar el panel mobile.
+*/
 
 .nav-toggle {
   display: none;
@@ -161,17 +126,15 @@
   background: transparent;
 
   cursor: pointer;
-
   color: var(--text-primary);
-
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  line-height: 1;
 
   flex-shrink: 0;
+  z-index: 101;
 }
 
-/* ==========================================================
-   MOBILE
-========================================================== */
+/* ── Mobile ──────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
 
@@ -179,58 +142,59 @@
     padding: 0 1rem;
   }
 
+  /* Mostrar hamburguesa */
   .nav-toggle {
     display: flex;
   }
 
+  /*
+    El menú ocupa posición absolute bajo el nav.
+    Por defecto está OCULTO (opacity 0 + visibility hidden).
+    La clase .nav-menu-open lo hace visible con transición.
+  */
   .nav-menu {
     position: absolute;
-
-    top: 100%;
+    top: 68px;       /* justo debajo del nav */
     left: 0;
     right: 0;
 
-    display: flex;
     flex-direction: column;
-
+    align-items: stretch;
     gap: 1.25rem;
 
     padding: 1.5rem;
 
-    background: rgba(255,255,255,.98);
-
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
-    border-bottom:
-      1px solid var(--purple-border);
+    border-bottom: 1px solid var(--purple-border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 
-    box-shadow:
-      0 20px 50px rgba(0,0,0,.08);
-
+    /* Estado CERRADO */
     opacity: 0;
     visibility: hidden;
-
-    transform: translateY(-10px);
+    pointer-events: none;
+    transform: translateY(-8px);
 
     transition:
-      opacity .25s ease,
-      transform .25s ease,
-      visibility .25s ease;
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s ease;
   }
 
-  .nav-menu-open {
+  /* Estado ABIERTO — clase añadida por NavbarUI.init() */
+  .nav-menu.nav-menu-open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translateY(0);
   }
 
   .nav-links {
     width: 100%;
-
     flex-direction: column;
-
     align-items: flex-start;
-
     gap: 1rem;
   }
 
@@ -241,30 +205,30 @@
   .nav-links a {
     display: block;
     width: 100%;
-    padding: .25rem 0;
+    padding: 0.25rem 0;
+    font-size: 1rem;
   }
 
   .nav-donar {
     width: 100%;
     text-align: center;
+    display: block;
+    padding: 0.9rem 1.3rem;
   }
 }
 
-/* ==========================================================
-   SMALL MOBILE
-========================================================== */
+/* ── Small mobile ────────────────────────────────────────── */
 
 @media (max-width: 480px) {
 
+  .nav-logo {
+    font-size: 1.05rem;
+  }
+
   .nav-logo-name {
     max-width: 150px;
-
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  .nav-logo {
-    font-size: 1.05rem;
   }
 }

@@ -51,6 +51,7 @@ import {
 /* ── Inicialización global ────────────────────────────────── */
 
 export function initAllEffects() {
+  initNavbar();          // toggle hamburguesa — DEBE ir primero (DOM ya montado)
 
   initNavbarScroll();
 
@@ -59,4 +60,55 @@ export function initAllEffects() {
   initRevealOnScroll();
 
   initHeroParallax();
+}
+
+/* ── Navbar toggle — DOM directo, sin import NavbarUI ────── */
+/*
+  Misma lógica que NavbarUI.init() pero accede al DOM
+  directamente para evitar el import circular que rompe
+  el build de Vite/Rolldown.
+*/
+
+function initNavbar() {
+
+  const toggle =
+    document.getElementById('navToggle');
+
+  const menu =
+    document.getElementById('navMenu');
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', () => {
+
+    const isOpen =
+      menu.classList.toggle('nav-menu-open');
+
+    toggle.setAttribute(
+      'aria-expanded',
+      String(isOpen)
+    );
+
+    toggle.textContent = isOpen ? '✕' : '☰';
+  });
+
+  menu.querySelectorAll('a').forEach(link => {
+
+    link.addEventListener('click', () => {
+      menu.classList.remove('nav-menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    });
+
+  });
+
+  document.addEventListener('click', (e) => {
+
+    if (!e.target.closest('#nav')) {
+      menu.classList.remove('nav-menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    }
+
+  });
 }

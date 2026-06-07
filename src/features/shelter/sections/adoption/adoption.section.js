@@ -13,7 +13,7 @@
    Solo muestra una pequeña muestra de mascotas.
    El catálogo completo vive en pets.page.js
 ============================================================ */
-
+import './adoption.css';
 const MAX_PREVIEW_PETS = 4;
 
 export function renderAdoption(
