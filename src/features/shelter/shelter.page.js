@@ -34,10 +34,16 @@ export async function initShelterPage() {
       sheetsService.getPets()
     ]);
 
-    validateAboutData(rawAbout);
-
     const about =
       mapAbout(rawAbout);
+
+    if (!about.shelterName) {
+
+      throw new Error(
+        'El refugio no tiene nombre.'
+      );
+
+    }
 
     const pets =
       Array.isArray(rawPets)
@@ -63,5 +69,7 @@ export async function initShelterPage() {
     renderErrorScreen(
       'No se pudo cargar la información del refugio.'
     );
+
   }
+
 }
