@@ -100,13 +100,13 @@ export const FooterUI = {
                 ${_socialLink(
                   about.tiktokLink,
                   'TikTok',
-                  TiktokIcon()
+                  TikTokIcon()
                 )}
 
                 ${_socialLink(
                   about.youtubeLink,
                   'YouTube',
-                  YoutubeIcon()
+                  YouTubeIcon()
                 )}
 
               </div>
