@@ -1,0 +1,391 @@
+.nexa-section {
+  position: relative;
+  background: var(--white);
+  overflow: hidden;
+  padding: 0;
+}
+
+.nexa-top-wave,
+.nexa-bottom-wave {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.nexa-top-wave    { margin-bottom: -2px; }
+.nexa-bottom-wave { margin-top: -2px; }
+
+.nexa-top-wave svg,
+.nexa-bottom-wave svg {
+  width: 100%;
+  display: block;
+}
+
+.nexa-top-wave svg    { height: 90px; }
+.nexa-bottom-wave svg { height: 70px; }
+
+.nexa-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.nexa-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+.nexa-shape-1 {
+  width: 500px;
+  height: 500px;
+  top: 10%;
+  right: -100px;
+  background: rgba(var(--purple-rgb), 0.07);
+}
+
+.nexa-shape-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 5%;
+  left: -80px;
+  background: rgba(var(--purple-rgb), 0.05);
+}
+
+.nexa-shape-3 {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 40%;
+  background: rgba(200, 160, 255, 0.06);
+}
+
+.nexa-inner {
+  width: var(--container-lg);
+  margin: 0 auto;
+  padding: var(--space-20) 0 var(--space-24);
+  position: relative;
+  z-index: 2;
+}
+
+.nexa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.nexa-made-by {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-4);
+}
+
+.nexa-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--purple-200);
+  box-shadow: 0 0 8px rgba(var(--purple-rgb), 0.5);
+  animation: pulseDot 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.nexa-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.nexa-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nexa-brand {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--purple-200) 0%, var(--purple-400) 50%, var(--purple-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nexa-tagline {
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 1.4rem;
+}
+
+.nexa-body {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: var(--space-8);
+  max-width: 460px;
+}
+
+.nexa-body strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.nexa-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: var(--space-10);
+}
+
+.nexa-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--purple-bg-07);
+  border: 1px solid var(--purple-border);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--purple-500);
+}
+
+.nexa-pill-icon { font-size: 0.95rem; }
+
+.nexa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.1rem var(--space-8);
+  border-radius: var(--radius-xs);
+  background: var(--gradient-primary);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 16px 40px rgba(var(--purple-rgb), 0.28);
+  transition:
+    transform var(--dur-slow) var(--ease),
+    box-shadow var(--dur-slow) var(--ease-std);
+}
+
+.nexa-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 55px rgba(var(--purple-rgb), 0.38);
+}
+
+/* ─── Visual / card stack ─── */
+
+.nexa-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.nexa-card-stack {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 260px;
+  z-index: 3;
+}
+
+.nexa-hero-img-wrap {
+  position: absolute;
+  bottom: calc(100% - 260px - 1.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.nexa-hero-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 -10px 30px rgba(var(--purple-rgb), 0.15));
+}
+
+.nexa-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--purple-bg-12);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 24px 60px rgba(80, 50, 160, 0.10),
+    0 1px 0 rgba(255, 255, 255, 0.90) inset;
+}
+
+.nexa-card-main {
+  padding: 2.2rem;
+  transition:
+    transform var(--dur-xslow) var(--ease),
+    box-shadow var(--dur-xslow) var(--ease-std);
+}
+
+.nexa-card-main:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 36px 70px rgba(80, 50, 160, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.90) inset;
+}
+
+.nexa-card-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  top: -20px;
+  right: -20px;
+  background: radial-gradient(rgba(var(--purple-rgb), 0.10), transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.nexa-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: 1.4rem;
+}
+
+.nexa-card-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-3xs);
+  background: var(--gradient-primary);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nexa-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.nexa-avatar-fallback {
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.nexa-card-header strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.nexa-card-header span {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.nexa-card-quote {
+  font-size: 0.92rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 1.6rem;
+  padding-left: var(--space-4);
+  border-left: 3px solid rgba(var(--purple-rgb), 0.30);
+}
+
+.nexa-card-stats {
+  display: flex;
+  gap: 0;
+}
+
+.nexa-cstat {
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--purple-bg-08);
+}
+
+.nexa-cstat:not(:last-child) {
+  border-right: 1px solid var(--purple-bg-08);
+}
+
+.nexa-cstat strong {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--purple-200);
+}
+
+.nexa-cstat span {
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nexa-card-float {
+  position: absolute;
+  bottom: -1.4rem;
+  right: -1.4rem;
+  padding: var(--space-4) 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  animation: floatCard 4.5s ease-in-out infinite;
+}
+
+.nexa-float-icon { font-size: 1.6rem; }
+
+.nexa-card-float strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.nexa-card-float span {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+@media (max-width: 900px) {
+  .nexa-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+  .nexa-card-float { right: 0; bottom: -1rem; }
+  .nexa-hero-img-wrap { width: 260px; }
+  .nexa-card-stack { margin-top: 200px; }
+}
+
+@media (max-width: 600px) {
+  .nexa-inner { padding: 3.5rem 0 var(--space-16); }
+  .nexa-brand { font-size: 3.5rem; }
+  .nexa-pills { gap: 0.5rem; }
+  .nexa-pill { font-size: 0.78rem; padding: 0.4rem var(--space-3); }
+
+  .nexa-hero-img-wrap {
+    width: 200px;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin: 0 auto -20px;
+    display: block;
+  }
+
+  .nexa-card-stack { margin-top: 0; }
+  .nexa-visual { flex-direction: column; align-items: center; }
+}

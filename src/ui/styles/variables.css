@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+
+  /* ─── Tipografía ─── */
+  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'Fraunces', serif;
+  --font-ui:      'Outfit', sans-serif;
+
+  /* ─── Paleta base ─── */
+  --white:        #ffffff;
+  --off-white:    #faf9ff;
+  --lavender-50:  #f5f3ff;
+  --lavender-100: #f0ecff;
+  --lavender-200: #ede8ff;
+  --lavender-300: #f4f1fd;
+  --lavender-400: #f8f6ff;
+
+  /* ─── Colores de texto ─── */
+  --text-primary:  #1e1d2a;
+  --text-dark-alt: #1a1530;
+  --text-mid:      #3d3b52;
+  --text-muted:    #66657a;
+  --text-soft:     #9998b0;
+  --text-faint:    #b0afc4;
+
+  /* ─── Morado — acento principal ─── */
+  --purple-light:  #b380ff;
+  --purple-100:    #b99fff;
+  --purple-200:    #9146ff;
+  --purple-300:    #7f5cff;
+  --purple-400:    #6d4cff;
+  --purple-500:    #5a37d8;
+
+  /* ─── Purple como RGB puro (para rgba()) ─── */
+  --purple-rgb:      145, 70, 255;
+  --purple-dark-rgb:  80, 60, 140;
+  --purple-mid-rgb:  124, 92, 255;
+
+  /* ─── Gradientes reutilizables ─── */
+  --gradient-primary:   linear-gradient(135deg, var(--purple-200), var(--purple-400));
+  --gradient-primary-2: linear-gradient(135deg, var(--purple-300), var(--purple-500));
+  --gradient-lavender:  linear-gradient(150deg, var(--off-white) 0%, var(--lavender-300) 50%, var(--lavender-400) 100%);
+  --gradient-donar:     linear-gradient(170deg, var(--off-white) 0%, var(--lavender-100) 40%, var(--lavender-200) 70%, var(--lavender-50) 100%);
+  --gradient-dark:      linear-gradient(135deg, #2a2040, var(--text-dark-alt));
+  --gradient-card-bg:   linear-gradient(160deg, #f0eef8 0%, #e8e5f4 55%, #ece9f6 100%);
+
+  /* ─── Fondo oscuro (sección tienda) ─── */
+  --bg-dark:      #1a1530;
+  --dark-surface: rgba(255, 255, 255, 0.05);
+  --dark-border:  rgba(255, 255, 255, 0.08);
+  --dark-text:    rgba(255, 255, 255, 0.45);
+
+  /* ─── Colores de marca externos ─── */
+  --whatsapp:     #25D366;
+  --yape:         var(--purple-400);
+  --plin:         #00b4d8;
+
+  /* ─── Sombras ─── */
+  --shadow-xs:    0 2px 8px rgba(var(--purple-dark-rgb), 0.06);
+  --shadow-sm:    0 8px 24px rgba(var(--purple-dark-rgb), 0.08);
+  --shadow-md:    0 18px 52px -8px rgba(var(--purple-dark-rgb), 0.13);
+  --shadow-lg:    0 30px 70px rgba(var(--purple-dark-rgb), 0.16);
+  --shadow-xl:    0 44px 90px -10px rgba(var(--purple-dark-rgb), 0.18);
+  --shadow-float: 0 20px 50px rgba(var(--purple-dark-rgb), 0.14),
+                  0 1px 0 rgba(255, 255, 255, 0.90) inset;
+  --shadow-card:  0 18px 52px -8px rgba(var(--purple-dark-rgb), 0.13),
+                  0 2px 0 rgba(255, 255, 255, 0.88) inset,
+                  0 1px 4px rgba(var(--purple-mid-rgb), 0.06);
+  --shadow-btn:   0 15px 30px rgba(var(--purple-mid-rgb), 0.22);
+  --shadow-btn-hover: 0 22px 40px rgba(var(--purple-mid-rgb), 0.28);
+
+  /* ─── Border radius ─── */
+  --radius-pill:  999px;
+  --radius-2xl:   34px;
+  --radius-xl:    32px;
+  --radius-lg:    28px;
+  --radius-md:    24px;
+  --radius-sm:    20px;
+  --radius-xs:    18px;
+  --radius-2xs:   16px;
+  --radius-3xs:   14px;
+  --radius-4xs:   12px;
+  --radius-5xs:   10px;
+
+  /* ─── Transiciones / easing ─── */
+  --ease:         cubic-bezier(.19, 1, .22, 1);
+  --ease-std:     ease;
+  --dur-fast:     0.3s;
+  --dur-base:     0.4s;
+  --dur-slow:     0.45s;
+  --dur-xslow:    0.5s;
+  --dur-reveal:   0.8s;
+  --dur-hero:     1.2s;
+
+  /* ─── Espaciado (escala 4px) ─── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ─── Anchos de contenedor ─── */
+  --container-sm:  min(650px, 100%);
+  --container-md:  min(900px, 92%);
+  --container-lg:  min(1100px, 92%);
+  --container-xl:  min(1160px, 92%);
+
+  /* ─── Efectos de glass ─── */
+  --glass-bg:      rgba(255, 255, 255, 0.72);
+  --glass-border:  rgba(255, 255, 255, 0.85);
+  --glass-blur:    blur(18px);
+  --glass-light:   rgba(255, 255, 255, 0.65);
+
+  /* ─── Opacidades de purple para fondos/bordes ─── */
+  --purple-bg-10:  rgba(var(--purple-rgb), 0.10);
+  --purple-bg-08:  rgba(var(--purple-rgb), 0.08);
+  --purple-bg-07:  rgba(var(--purple-rgb), 0.07);
+  --purple-bg-05:  rgba(var(--purple-rgb), 0.05);
+  --purple-bg-12:  rgba(var(--purple-rgb), 0.12);
+  --purple-bg-15:  rgba(var(--purple-rgb), 0.15);
+  --purple-border: rgba(var(--purple-rgb), 0.14);
+  --purple-border-lg: rgba(var(--purple-rgb), 0.20);
+}

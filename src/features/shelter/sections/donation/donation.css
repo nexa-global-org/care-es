@@ -1,0 +1,236 @@
+.donar-section {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-32) 0 0;
+  background: var(--gradient-donar);
+}
+
+/* Onda al fondo */
+.donar-section::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 80px;
+  margin-top: var(--space-24);
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 80' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,80 L1440,80 L1440,20 Q1080,80 720,40 Q360,0 0,60 Z' fill='%231a1530'/%3E%3C/svg%3E") no-repeat center bottom;
+  background-size: 100% 100%;
+}
+
+.donar-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.donar-blob-1 {
+  width: 600px;
+  height: 600px;
+  top: -100px;
+  left: -150px;
+  background: rgba(148, 118, 255, 0.10);
+}
+
+.donar-blob-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -80px;
+  right: -100px;
+  background: rgba(100, 80, 220, 0.08);
+}
+
+.donar-inner {
+  width: var(--container-lg);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.donar-heading {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.donar-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: var(--purple-bg-10);
+  border: 1px solid rgba(var(--purple-mid-rgb), 0.16);
+  color: var(--purple-400);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.donar-titulo {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+}
+
+.donar-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.donar-cards {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+/* ─── QR Card ─── */
+
+.qr-card {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  box-shadow:
+    0 30px 70px -10px rgba(var(--purple-dark-rgb), 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.90) inset;
+  transition:
+    transform var(--dur-xslow) var(--ease),
+    box-shadow var(--dur-xslow) var(--ease-std);
+}
+
+.qr-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.qr-card-glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(rgba(var(--purple-mid-rgb), 0.08), transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.qr-card-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: var(--space-6);
+}
+
+.qr-placeholder {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--space-6);
+  background: var(--white);
+  border-radius: var(--radius-2xs);
+  padding: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.qr-placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+
+.qr-methods {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+
+.qr-method {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-4xs);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  overflow-wrap: break-word;
+}
+
+.qr-method.yape  { background: var(--yape);          color: var(--white); }
+.qr-method.plin  { background: var(--plin);           color: var(--white); }
+.qr-method.banco { background: var(--lavender-100);   color: var(--text-mid); }
+
+.qr-message {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ─── Impacto ─── */
+
+.impacto-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.impacto-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 1.4rem 1.8rem;
+  box-shadow: 0 8px 30px rgba(var(--purple-dark-rgb), 0.07);
+  transition:
+    transform var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease-std);
+  cursor: default;
+}
+
+.impacto-item:hover {
+  transform: translateX(8px);
+  box-shadow: 0 14px 40px rgba(var(--purple-dark-rgb), 0.11);
+}
+
+.impacto-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.impacto-item strong {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+}
+
+.impacto-item span {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .donar-cards { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .donar-titulo { font-size: clamp(2.4rem, 10vw, 3rem); }
+  .qr-card { padding: var(--space-8) var(--space-6); }
+}

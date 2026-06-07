@@ -1,0 +1,39 @@
+/* ─── Hero buttons ─── */
+
+.btn-primary {
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-xs);
+  background: var(--gradient-primary);
+  color: var(--white); font-size: 0.95rem; font-weight: 700;
+  box-shadow: var(--shadow-btn);
+  transition: all var(--dur-slow) var(--ease);
+  display: inline-flex; align-items: center; gap: var(--space-2);
+}
+.btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.btn-secondary {
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-xs);
+  background: var(--white); color: var(--text-primary);
+  font-size: 0.95rem; font-weight: 700;
+  border: 1.5px solid var(--purple-border);
+  transition: all var(--dur-slow) var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover {
+  border-color: var(--purple-border-lg);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .section-buttons { flex-direction: column; width: 100%; }
+  .section-buttons a { width: min(320px, 90%); text-align: center; }
+}

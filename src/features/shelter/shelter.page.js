@@ -1,40 +1,67 @@
-import { sheetsService } from '../../services/sheets.service.js';
+import {
+  sheetsService
+} from '../../services/sheets.service.js';
 
-import { render } from '../../ui/dom.js';
+import {
+  render
+} from '../../ui/dom.js';
 
 import {
   shelterTemplate
 } from './shelter.ui.js';
 
+import {
+  renderErrorScreen
+} from '../../ui/screens.js';
+
+import {
+  mapAbout
+} from './shelter.mapper.js';
+
+import {
+  initAllEffects
+} from '../../effects/index.js';
+
 export async function initShelterPage() {
 
   try {
 
-    const about =
-      await sheetsService.getAbout();
+    const [
+      rawAbout,
+      rawPets
+    ] = await Promise.all([
+      sheetsService.getAbout(),
+      sheetsService.getPets()
+    ]);
 
-      console.log(
-  '[ABOUT]',
-  about
-);
+    validateAboutData(rawAbout);
+
+    const about =
+      mapAbout(rawAbout);
+
+    const pets =
+      Array.isArray(rawPets)
+        ? rawPets
+        : [];
 
     render(
-      shelterTemplate(about)
+      shelterTemplate(
+        about,
+        pets
+      )
     );
+
+    initAllEffects();
 
   } catch (error) {
 
     console.error(
-      '[SHELTER]',
+      '[SHELTER PAGE]',
       error
     );
 
-    render(`
-      <section class="error">
-        <h2>
-          No se pudo cargar la información del refugio.
-        </h2>
-      </section>
-    `);
+    renderErrorScreen(
+      'No se pudo cargar la información del refugio.'
+    );
   }
 }

@@ -1,0 +1,64 @@
+/* ─── Floating actions ─── */
+
+.floating-actions {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 9999;
+}
+
+.floating-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 12px 30px rgba(60, 50, 120, 0.12),
+    0 2px 0 rgba(255, 255, 255, 0.90) inset;
+  transition:
+    transform var(--dur-slow) var(--ease),
+    box-shadow var(--dur-slow) var(--ease-std),
+    background var(--dur-slow) var(--ease-std);
+}
+
+.floating-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.70), transparent 70%);
+  opacity: .7;
+  pointer-events: none;
+}
+
+.floating-btn img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+.floating-btn:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow:
+    0 20px 40px rgba(60, 50, 120, 0.16),
+    0 2px 0 rgba(255, 255, 255, 0.95) inset;
+}
+
+.whatsapp-btn {
+  background: linear-gradient(180deg, rgba(240, 255, 245, 0.85), rgba(225, 250, 235, 0.72));
+}
+
+.donate-btn {
+  background: linear-gradient(180deg, rgba(245, 240, 255, 0.88), rgba(234, 228, 255, 0.74));
+}

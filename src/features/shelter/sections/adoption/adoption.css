@@ -1,0 +1,359 @@
+.content-section {
+  position: relative;
+  width: 100%;
+  padding: var(--space-20) 0 0;
+  overflow: clip;
+  background: var(--white);
+}
+
+/* ─── Heading ─── */
+
+.section-heading {
+  max-width: var(--container-md);
+  width: calc(100% - 2rem);
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.section-heading h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+  text-wrap: balance;
+}
+
+.section-heading p {
+  max-width: var(--container-sm);
+  width: 100%;
+  margin-inline: auto;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.8;
+  margin-bottom: 2.2rem;
+}
+
+/* ─── Pet carousel card ─── */
+
+.pet-carousel-card {
+  position: relative;
+  flex: 0 0 290px;
+  height: 390px;
+  border-radius: var(--radius-2xl);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  background: var(--gradient-card-bg);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--dur-xslow) var(--ease),
+    box-shadow var(--dur-xslow) var(--ease-std);
+}
+
+.pet-carousel-card:hover {
+  transform: translateY(-14px);
+  box-shadow:
+    0 34px 68px -10px rgba(var(--purple-dark-rgb), 0.18),
+    0 2px 0 rgba(255, 255, 255, 0.92) inset,
+    0 1px 4px rgba(var(--purple-mid-rgb), 0.08);
+}
+
+.card-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  top: 20px;
+  background: radial-gradient(rgba(148, 118, 255, 0.14), transparent 68%);
+  filter: blur(36px);
+  z-index: 0;
+}
+
+.pet-carousel-card img {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  z-index: 2;
+  margin-bottom: var(--space-4);
+  filter: drop-shadow(0 20px 22px rgba(var(--purple-dark-rgb), 0.18));
+  transition: transform var(--dur-xslow) var(--ease);
+}
+
+.pet-carousel-card:hover img {
+  transform: translateY(-8px) scale(1.04);
+}
+
+.pet-carousel-card h3 {
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.04em;
+}
+
+.pet-card-btn {
+  position: relative;
+  z-index: 2;
+
+  padding: 0.9rem 1.4rem;
+
+  border: none;
+
+  border-radius: var(--radius-2xs);
+
+  background: rgba(255,255,255,.65);
+
+  color: var(--text-mid);
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all var(--dur-base) var(--ease-std);
+}
+
+.pet-card-btn:hover {
+  background: var(--purple-400);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* ─── Placeholder (sin imagen) ─── */
+
+.pet-carousel-card--placeholder .pet-carousel-placeholder-emoji {
+  position: relative;
+  z-index: 2;
+  font-size: 5rem;
+  margin-bottom: var(--space-4);
+}
+
+/* ─── Carrusel bg decorativo ─── */
+
+.carrusel-bg {
+  display: block;
+  position: relative;
+  z-index: 5;
+  width: min(1100px, 110%);
+  height: auto;
+  margin: -180px auto 0;
+  transform-origin: center bottom;
+  will-change: transform;
+  filter: drop-shadow(0 -14px 34px rgba(0, 0, 0, .10));
+  pointer-events: none;
+}
+
+/* ─── Section buttons (adoptar) ─── */
+
+.section-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.section-buttons a {
+  transition: all var(--dur-slow) var(--ease);
+}
+
+.primary-btn {
+  padding: 1.1rem 1.8rem;
+  border-radius: var(--radius-xs);
+  background: var(--gradient-primary-2);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-btn);
+}
+
+.primary-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.secondary-btn {
+  padding: 1.1rem 1.8rem;
+  border-radius: var(--radius-xs);
+  background: var(--glass-light);
+  border: 1px solid rgba(80, 80, 100, 0.10);
+  backdrop-filter: var(--glass-blur);
+  color: var(--text-mid);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.secondary-btn:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  padding: var(--space-12) 0 12rem;
+  overflow: hidden;
+}
+
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 180px;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--white) 20%, transparent);
+}
+
+.carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--white) 20%, transparent);
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: infiniteCarousel 36s linear infinite;
+}
+
+.carousel-wrapper:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.carousel-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 0 var(--space-4);
+  flex-shrink: 0;
+}
+
+.pet-card-fallback {
+  position: relative;
+  z-index: 2;
+
+  width: 180px;
+  height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-sm);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--purple-rgb), .10),
+      rgba(var(--purple-rgb), .04)
+    );
+
+  font-size: 4rem;
+
+  color:
+    rgba(var(--purple-rgb), .55);
+
+  margin-bottom: var(--space-4);
+}
+
+.pet-placeholder-text {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+
+  font-size: .9rem;
+
+  color: var(--text-muted);
+
+  line-height: 1.6;
+}
+
+.pet-carousel-card.empty {
+  opacity: .85;
+}
+
+.pet-carousel-card.empty h3 {
+  font-size: 1.4rem;
+}
+
+
+
+@keyframes infiniteCarousel {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .carousel-wrapper { padding-bottom: var(--space-24); }
+  .carousel-track { animation: infiniteCarousel 28s linear infinite; }
+  .carousel-group {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-track { animation: infiniteCarousel 22s linear infinite; }
+}
+
+
+@media (max-width: 768px) {
+  .content-section { padding: var(--space-16) 0 0; }
+  .section-heading { margin-bottom: var(--space-12); }
+  .section-heading h1 { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+  .section-heading p { font-size: 1.02rem; line-height: 1.7; width: 90%; }
+
+  .pet-carousel-card {
+    flex: 0 0 220px;
+    height: 320px;
+    border-radius: 28px;
+  }
+  .pet-carousel-card img { width: 160px; height: 160px; }
+  .pet-carousel-card h3 { font-size: 1.7rem; }
+
+  .carrusel-bg {
+    width: 100vw;
+    margin: -120px 0 0 0;
+    left: 0;
+    transform: none;
+    position: relative;
+  }
+}
+
+@media (max-width: 480px) {
+  .pet-carousel-card { flex: 0 0 200px; height: 300px; }
+  .carrusel-bg { width: 100vw; margin: -80px 0 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .carousel-track {
+    animation: none;
+  }
+
+  .pet-carousel-card,
+  .pet-carousel-card img {
+    transition: none;
+  }
+
+}
