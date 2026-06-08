@@ -156,27 +156,7 @@
   padding: var(--space-12) 0 var(--space-16);
 }
 
-/* Fades laterales */
-.carousel-wrapper::before,
-.carousel-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 180px;
-  height: 100%;
-  z-index: 10;
-  pointer-events: none;
-}
 
-.carousel-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, var(--white) 20%, transparent);
-}
-
-.carousel-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, var(--white) 20%, transparent);
-}
 
 /* ── Carousel track ──────────────────────────────────────── */
 
@@ -390,7 +370,7 @@
   .content-section {
     --banco-visible: 180px;
     --banco-offset: -10px;
-    padding-bottom: 220px; /* banco-visible + |banco-offset| directo */
+    padding-bottom: 60px; /* banco-visible + |banco-offset| directo */
   }
 
   .section-heading {
@@ -448,6 +428,7 @@
 
   .carrusel-bg {
     width: 100vw;
+    bottom: -30px;         /* sube hacia las cards */
   }
 }
 
@@ -456,12 +437,16 @@
   .content-section {
     --banco-visible: 120px;
     --banco-offset: -10px;
-    padding-bottom: 200px;
+    padding-bottom: 50px;
   }
 
   .pet-carousel-card {
     flex: 0 0 200px;
     height: 300px;
+  }
+
+  .carrusel-bg {
+    bottom: -20px;
   }
 
   .carousel-track {
