@@ -1,6 +1,6 @@
 
 /* =========================
-   HISTORIA SECTION
+   about SECTION
 ========================= */
 
 .historia-section {
@@ -8,8 +8,8 @@
   background: var(--white);
   padding-top: 0;
   padding-bottom: var(--space-24);
-  z-index: 1;
-  overflow: hidden;
+  z-index: 3;
+  overflow: visible;
 }
 
 .historia-text {

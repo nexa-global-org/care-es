@@ -35,7 +35,7 @@
     Para que banco suba más → aumenta --banco-visible
     Para que banco baje más → disminuye --banco-visible
     ──────────────────────────────────────────────────────── */
-  --banco-visible: 160px;   /* ← AJUSTA AQUÍ cuánto sube banco sobre about */
+  --banco-visible: 170px;   /* ← AJUSTA AQUÍ cuánto sube banco sobre about */
   --banco-offset: -120px;   /* ← AJUSTA AQUÍ qué tan abajo dentro de about */
 
   padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
@@ -372,7 +372,8 @@
 */
 .historia-section {
   position: relative;
-  z-index: 3;                      /* tapa banco.png */
+  z-index: 3;
+  overflow: visible;  /* banco.png puede asomarse desde adoption */
 }
 
 /* ── Keyframe ────────────────────────────────────────────── */
