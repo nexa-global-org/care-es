@@ -35,8 +35,8 @@
     Para que banco suba más → aumenta --banco-visible
     Para que banco baje más → disminuye --banco-visible
     ──────────────────────────────────────────────────────── */
-  --banco-visible: 320px;
-  --banco-offset: -40px;   /* ← AJUSTA AQUÍ qué tan abajo dentro de about */
+  --banco-visible: 360px;
+  --banco-offset: -10px;   /* ← AJUSTA AQUÍ qué tan abajo dentro de about */
 
   padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
 }
@@ -388,8 +388,8 @@
 @media (max-width: 768px) {
 
   .content-section {
-   --banco-visible: 220px;
-   --banco-offset: -30px;
+   --banco-visible: 320px;
+   --banco-offset: -10px;
     padding: var(--space-16) 0 0;
     padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
   }
@@ -455,8 +455,8 @@
 @media (max-width: 480px) {
 
   .content-section {
-   --banco-visible: 160px;
-   --banco-offset: -20px;
+   --banco-visible: 260px;
+   --banco-offset: -10px;
     padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
   }
 
