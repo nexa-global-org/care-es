@@ -2,16 +2,6 @@
    UI — footer.js
 
    Footer dinámico del refugio.
-
-   Campos usados:
-     about.shelterName
-     about.shelterLogo
-     about.instagramLink
-     about.facebookLink
-     about.tiktokLink
-     about.youtubeLink
-     about.adoptionForm
-     about.whatsappNumber
 ============================================================ */
 import './footer.css';
 import {
@@ -28,21 +18,14 @@ export const FooterUI = {
 
   render(about) {
 
-    const year =
-      new Date().getFullYear();
+    const year = new Date().getFullYear();
 
-    const phone =
-      (about.whatsappNumber || '')
-        .replace(/\D/g, '');
+    const phone = (about.whatsappNumber || '').replace(/\D/g, '');
 
-    const waLink =
-      phone
-        ? `https://wa.me/${phone}`
-        : '#';
+    const waLink = phone ? `https://wa.me/${phone}` : '#';
 
-    const logo =
-      about.shelterLogo
-        ? `
+    const logo = about.shelterLogo
+      ? `
           <img
             src="${about.shelterLogo}"
             alt="${about.shelterName}"
@@ -52,7 +35,7 @@ export const FooterUI = {
             onerror="this.remove()"
           >
         `
-        : `
+      : `
           <div class="footer-logo-fallback">
             🐾
           </div>
@@ -66,17 +49,12 @@ export const FooterUI = {
           <div class="footer-top">
 
             <!-- Marca -->
-
             <div class="footer-brand">
-
               <div class="footer-logo">
-
                 ${logo}
-
                 <span class="footer-logo-text">
                   ${about.shelterName}
                 </span>
-
               </div>
 
               <p class="footer-tagline-text">
@@ -84,137 +62,75 @@ export const FooterUI = {
               </p>
 
               <div class="footer-socials">
-
-                ${_socialLink(
-                  about.instagramLink,
-                  'Instagram',
-                  InstagramIcon()
-                )}
-
-                ${_socialLink(
-                  about.facebookLink,
-                  'Facebook',
-                  FacebookIcon()
-                )}
-
-                ${_socialLink(
-                  about.tiktokLink,
-                  'TikTok',
-                  TikTokIcon()
-                )}
-
-                ${_socialLink(
-                  about.youtubeLink,
-                  'YouTube',
-                  YouTubeIcon()
-                )}
-
+                ${_socialLink(about.instagramLink,'Instagram',InstagramIcon())}
+                ${_socialLink(about.facebookLink,'Facebook',FacebookIcon())}
+                ${_socialLink(about.tiktokLink,'TikTok',TikTokIcon())}
+                ${_socialLink(about.youtubeLink,'YouTube',YouTubeIcon())}
               </div>
-
             </div>
 
             <!-- Adopta -->
-
             <div class="footer-links-group">
-
               <h4>Adopta</h4>
-
               <ul>
-
-                <li>
-                  <a
-                    href="#"
-                    data-route="pets"
-                  >
-                    Ver mascotas
-                  </a>
-                </li>
-
+                <li><a href="#" data-route="pets">Ver mascotas</a></li>
                 ${
                   about.adoptionForm
                     ? `
                       <li>
-                        <a
-                          href="${about.adoptionForm}"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href="${about.adoptionForm}" target="_blank" rel="noopener noreferrer">
                           Formulario de adopción
                         </a>
                       </li>
                     `
                     : ''
                 }
-
-                <li>
-                  <a href="#historia">
-                    Historias reales
-                  </a>
-                </li>
-
+                <li><a href="#historia">Historias reales</a></li>
               </ul>
-
             </div>
 
             <!-- Apoya -->
-
             <div class="footer-links-group">
-
               <h4>Apoya</h4>
-
               <ul>
-
-                <li>
-                  <a href="#donar">
-                    Donar
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    data-route="shop"
-                  >
-                    Tienda solidaria
-                  </a>
-                </li>
-
+                <li><a href="#donar">Donar</a></li>
+                <li><a href="#" data-route="shop">Tienda solidaria</a></li>
+                ${
+                  about.volunteersForm
+                    ? `
+                      <li>
+                        <a href="${about.volunteersForm}" target="_blank" rel="noopener noreferrer">
+                          Sé voluntario
+                        </a>
+                      </li>
+                    `
+                    : ''
+                }
               </ul>
-
             </div>
 
             <!-- Nosotros -->
-
             <div class="footer-links-group">
-
               <h4>Nosotros</h4>
-
               <ul>
-
-                <li>
-                  <a href="#nosotros">
-                    Nuestra historia
-                  </a>
-                </li>
-
+                <li><a href="#nosotros">Nuestra historia</a></li>
                 ${
                   phone
                     ? `
                       <li>
-                        <a
-                          href="${waLink}"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href="${waLink}" target="_blank" rel="noopener noreferrer">
                           Contacto
                         </a>
                       </li>
                     `
                     : ''
                 }
-
+                <li>
+                  <a href="${NEXA_URL}" target="_blank" rel="noopener noreferrer">
+                    Alianzas
+                  </a>
+                </li>
               </ul>
-
             </div>
 
           </div>
@@ -222,33 +138,16 @@ export const FooterUI = {
           <div class="footer-divider"></div>
 
           <div class="footer-bottom">
-
-            <p class="footer-copy">
-              © ${year} ${about.shelterName}
-            </p>
-
+            <p class="footer-copy">© ${year} ${about.shelterName}</p>
             <div class="footer-nexa-credit">
-
               <span>Hecho con</span>
-
-              <span class="footer-heart">
-                ♥
-              </span>
-
+              <span class="footer-heart">♥</span>
               <span>por</span>
-
-              <a
-                href="${NEXA_URL}"
-                class="footer-nexa-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="${NEXA_URL}" class="footer-nexa-link" target="_blank" rel="noopener noreferrer">
                 <span class="footer-nexa-dot"></span>
                 Nexa
               </a>
-
             </div>
-
           </div>
 
         </div>
@@ -258,6 +157,7 @@ export const FooterUI = {
   }
 
 };
+
 
 /* ============================================================
    Helpers

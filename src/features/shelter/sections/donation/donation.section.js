@@ -80,11 +80,11 @@ export function renderDonation(about) {
             <div class="qr-methods">
 
               <span class="qr-method yape">
-                Yape
+                App
               </span>
 
               <span class="qr-method plin">
-                Plin
+                Móvil
               </span>
 
               <span class="qr-method banco">

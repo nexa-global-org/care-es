@@ -1,31 +1,44 @@
 /* ============================================================
    ADOPTION — adoption.css
-   Fixes:
-   1. Carrusel sin gap: el loop usa -50% que requiere que los
-      grupos sean suficientemente anchos. Se asegura con 4
-      grupos desde el JS, y el track sin wrapper que recorte.
-   2. banco.png: sale del carousel-wrapper, vive directamente
-      en .content-section y se posiciona con absolute para
-      que el borde inferior de la imagen toque el borde
-      superior de .historia-section.
 ============================================================ */
 
 /* ── Sección contenedor ──────────────────────────────────── */
 
 .content-section {
-  position: relative;       /* ← contexto para .carrusel-bg absolute */
+  position: relative;         /* contexto para .carrusel-bg absolute */
   width: 100%;
   padding: var(--space-20) 0 0;
-  overflow: clip;
+
+  /*
+    overflow: visible (NO clip ni hidden) para que las sombras
+    de las cards no se recorten en el borde inferior.
+    Los fades laterales del carrusel se aplican en
+    .carousel-wrapper que sí tiene overflow:hidden, así que
+    el recorte lateral sigue funcionando correctamente.
+  */
+  overflow: visible;
+
   background: var(--white);
 
   /*
-    Reserva espacio en la parte inferior para que banco.png
-    asome hacia la sección siguiente sin que el documento
-    salte. El valor coincide con la altura visible del banco
-    que queremos que sobresalga (~260px en desktop).
-  */
-  padding-bottom: 260px;
+    ── CONTROLA CUÁNTO SUBE banco.png ──────────────────────
+    padding-bottom reserva espacio vacío al final de la sección.
+    banco.png se posiciona con bottom: var(--banco-offset) que
+    es un valor NEGATIVO, empujándola hacia abajo (hacia about).
+
+    La cantidad visible de banco sobre el borde de about es:
+      padding-bottom − |banco-offset|
+
+    Ejemplo con los valores por defecto:
+      280px − 120px = 160px de banco visibles sobre about.
+
+    Para que banco suba más → aumenta --banco-visible
+    Para que banco baje más → disminuye --banco-visible
+    ──────────────────────────────────────────────────────── */
+  --banco-visible: 160px;   /* ← AJUSTA AQUÍ cuánto sube banco sobre about */
+  --banco-offset: -120px;   /* ← AJUSTA AQUÍ qué tan abajo dentro de about */
+
+  padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
 }
 
 /* ── Section heading ─────────────────────────────────────── */
@@ -133,13 +146,14 @@
 .carousel-wrapper {
   position: relative;
   width: 100%;
+
   /*
-    Sin padding-bottom aquí — el espacio inferior lo maneja
-    .content-section con su padding-bottom: 260px.
-    Solo padding-top para respiración sobre las cards.
+    overflow: hidden aquí recorta solo lateralmente (los fades).
+    padding-bottom da aire para que las sombras inferiores de
+    las cards no se corten contra el borde del wrapper.
   */
-  padding: var(--space-12) 0 var(--space-8);
-  overflow: hidden;       /* solo recorta lateralmente */
+  overflow: hidden;
+  padding: var(--space-12) 0 var(--space-16);
 }
 
 /* Fades laterales */
@@ -165,17 +179,6 @@
 }
 
 /* ── Carousel track ──────────────────────────────────────── */
-/*
-  LOOP PERFECTO:
-  El JS genera 4 grupos idénticos. La animación mueve -50%
-  (= 2 grupos). Cuando llega al punto de reset (-50%) las
-  posiciones 3 y 4 son visualmente idénticas a 1 y 2, así
-  que el salto es imperceptible.
-
-  Con solo 2 grupos y pocas cards el track puede ser tan
-  corto que la ventana muestra el hueco antes del reset.
-  Con 4 grupos hay siempre contenido llenando la pantalla.
-*/
 
 .carousel-track {
   display: flex;
@@ -205,7 +208,7 @@
   flex: 0 0 290px;
   height: 390px;
   border-radius: var(--radius-2xl);
-  overflow: visible;
+  overflow: visible;          /* sombras visibles */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -324,39 +327,52 @@
 
 /* ── banco.png ───────────────────────────────────────────── */
 /*
-  ESTRATEGIA DE POSICIONAMIENTO:
+  STACK DE Z-INDEX:
   ─────────────────────────────────────────────────────────
-  .content-section tiene position: relative y padding-bottom: 260px.
-  .carrusel-bg es absolute, pegado al borde inferior de
-  .content-section (bottom: 0). Esto hace que:
+  Cards del carrusel  → z-index: auto (flujo normal)
+  banco.png           → z-index: 2   ← se ve sobre las cards
+  .historia-section   → z-index: 3   ← se ve sobre banco
+  (historia-section necesita position:relative + z-index:3
+   que está definido en about.css / styles.css)
 
-  • La imagen siempre quede exactamente en el borde inferior
-    de .content-section, que es también el borde superior
-    de .historia-section → banco toca la sección about.
+  POSICIONAMIENTO VERTICAL:
+  ─────────────────────────────────────────────────────────
+  banco.png es absolute dentro de .content-section.
+  bottom: var(--banco-offset) la empuja hacia ABAJO del
+  borde inferior de .content-section (valor negativo = baja).
 
-  • El margen de 260px en padding-bottom crea el espacio
-    para que la parte inferior de la imagen sea visible sin
-    que .historia-section la tape.
+  Cuánto sube banco sobre la sección about:
+    padding-bottom de .content-section − |banco-offset|
+    = var(--banco-visible)  (definida arriba, por defecto 160px)
 
-  • z-index: 5 la pone por encima de las cards del carrusel
-    (z-index natural) sin romper el stacking de otras secciones.
-
-  El resultado es exactamente lo del original estático:
-  la mujer "sentada" asoma desde el carrusel y roza el borde
-  de la sección siguiente.
+  ── PARA AJUSTAR LA ALTURA DE BANCO ─────────────────────
+  Modifica --banco-visible y --banco-offset en .content-section
+  (al inicio de este archivo). No toques nada aquí abajo.
+  ─────────────────────────────────────────────────────────
 */
 
 .carrusel-bg {
   position: absolute;
-  bottom: 0;               /* pegado al borde inferior de .content-section */
+  bottom: var(--banco-offset);     /* valor negativo → baja hacia about */
   left: 50%;
   transform: translateX(-50%);
   width: min(1100px, 100%);
   height: auto;
-  z-index: 5;
+  z-index: 2;                      /* sobre cards, bajo historia-section */
   will-change: transform;
   filter: drop-shadow(0 -14px 34px rgba(0, 0, 0, 0.10));
   pointer-events: none;
+}
+
+/* ── historia-section debe ganar el z-index ─────────────── */
+/*
+  Para que about tape a banco, historia-section necesita
+  apilarse por encima. Si tu about.css ya define esto,
+  puedes borrar este bloque. Si no, déjalo aquí.
+*/
+.historia-section {
+  position: relative;
+  z-index: 3;                      /* tapa banco.png */
 }
 
 /* ── Keyframe ────────────────────────────────────────────── */
@@ -371,7 +387,10 @@
 @media (max-width: 768px) {
 
   .content-section {
-    padding: var(--space-16) 0 180px; /* ← menos espacio en mobile */
+    --banco-visible: 100px;
+    --banco-offset: -80px;
+    padding: var(--space-16) 0 0;
+    padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
   }
 
   .section-heading {
@@ -401,7 +420,7 @@
   }
 
   .carousel-wrapper {
-    padding-bottom: var(--space-4);
+    padding-bottom: var(--space-12);
   }
 
   .carousel-track {
@@ -435,7 +454,9 @@
 @media (max-width: 480px) {
 
   .content-section {
-    padding-bottom: 120px;
+    --banco-visible: 80px;
+    --banco-offset: -60px;
+    padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
   }
 
   .pet-carousel-card {
