@@ -1,14 +1,5 @@
 /* ============================================================
    SECTION — history.section.js
-
-   Historias reales:
-   transformación antes y después del rescate.
-
-   Campos usados:
-     beforeHistory
-     afterHistory
-     beforeImage
-     afterImage
 ============================================================ */
 import './history.css';
 
@@ -57,6 +48,7 @@ export function renderHistory(about) {
 
         <div class="pet-cards">
 
+          <!-- Card Antes -->
           <article
             class="pet-card reveal-card"
             style="--delay:0ms"
@@ -86,11 +78,13 @@ export function renderHistory(about) {
             </div>
 
             <div class="pet-card-body">
-              <h2>${beforeTitle}</h2>
+              <h2>Pasaba sus días con miedo y soledad</h2>
+              <p>${beforeTitle}</p>
             </div>
 
           </article>
 
+          <!-- Card Después -->
           <article
             class="pet-card reveal-card"
             style="--delay:120ms"
@@ -124,7 +118,8 @@ export function renderHistory(about) {
             </div>
 
             <div class="pet-card-body">
-              <h2>${afterTitle}</h2>
+              <h2>Ahora tiene una familia y amor</h2>
+              <p>${afterTitle}</p>
             </div>
 
           </article>

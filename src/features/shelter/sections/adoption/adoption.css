@@ -390,7 +390,7 @@
   .content-section {
     --banco-visible: 180px;
     --banco-offset: -10px;
-    padding-bottom: 190px; /* banco-visible + |banco-offset| directo */
+    padding-bottom: 220px; /* banco-visible + |banco-offset| directo */
   }
 
   .section-heading {
@@ -456,7 +456,7 @@
   .content-section {
     --banco-visible: 120px;
     --banco-offset: -10px;
-    padding-bottom: 150px;
+    padding-bottom: 200px;
   }
 
   .pet-carousel-card {
