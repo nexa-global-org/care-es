@@ -133,7 +133,7 @@ export function renderDonation(about) {
 
               <div>
                 <strong>Sé padrino</strong>
-                <span>Apoya a un perrito</span>
+                <span>Apoya a una vida</span>
               </div>
             </article>
 

@@ -1,35 +1,31 @@
 /* ============================================================
    ADOPTION — adoption.css
-   Sección "Adopta una vida": heading, carrusel infinito,
-   cards de mascotas y fondo decorativo.
-
-   Clases generadas por adoption.section.js:
-     .content-section        → wrapper de la sección
-     .section-heading        → bloque central de texto y CTAs
-     .section-badge          → pill "Adopta una vida"
-     .section-buttons        → fila de botones
-     .primary-btn            → botón primario (button[data-route])
-     .secondary-btn          → botón secundario (a[href])
-     .carousel-wrapper       → contenedor con fades laterales
-     .carousel-track         → flex animado (2 grupos → -50%)
-     .group                  → grupo de cards (se repite ×2)
-     .pet-carousel-card      → card individual
-     .pet-carousel-card--placeholder → estado sin mascotas
-     .card-glow              → blur decorativo interno
-     .pet-card-fallback      → emoji cuando no hay imagen
-     .pet-card-btn           → botón "Conóceme"
-     .pet-placeholder-text   → texto del estado vacío
-     .carrusel-bg            → imagen decorativa inferior
+   Fixes:
+   1. Carrusel sin gap: el loop usa -50% que requiere que los
+      grupos sean suficientemente anchos. Se asegura con 4
+      grupos desde el JS, y el track sin wrapper que recorte.
+   2. banco.png: sale del carousel-wrapper, vive directamente
+      en .content-section y se posiciona con absolute para
+      que el borde inferior de la imagen toque el borde
+      superior de .historia-section.
 ============================================================ */
 
 /* ── Sección contenedor ──────────────────────────────────── */
 
 .content-section {
-  position: relative;
+  position: relative;       /* ← contexto para .carrusel-bg absolute */
   width: 100%;
   padding: var(--space-20) 0 0;
   overflow: clip;
   background: var(--white);
+
+  /*
+    Reserva espacio en la parte inferior para que banco.png
+    asome hacia la sección siguiente sin que el documento
+    salte. El valor coincide con la altura visible del banco
+    que queremos que sobresalga (~260px en desktop).
+  */
+  padding-bottom: 260px;
 }
 
 /* ── Section heading ─────────────────────────────────────── */
@@ -62,7 +58,7 @@
   margin-bottom: 2.2rem;
 }
 
-/* ── Badge (compartido con otras secciones) ──────────────── */
+/* ── Badge ───────────────────────────────────────────────── */
 
 .section-badge {
   display: inline-flex;
@@ -137,8 +133,13 @@
 .carousel-wrapper {
   position: relative;
   width: 100%;
-  padding: var(--space-12) 0 12rem;
-  overflow: hidden;
+  /*
+    Sin padding-bottom aquí — el espacio inferior lo maneja
+    .content-section con su padding-bottom: 260px.
+    Solo padding-top para respiración sobre las cards.
+  */
+  padding: var(--space-12) 0 var(--space-8);
+  overflow: hidden;       /* solo recorta lateralmente */
 }
 
 /* Fades laterales */
@@ -165,9 +166,15 @@
 
 /* ── Carousel track ──────────────────────────────────────── */
 /*
-  Con 2 grupos idénticos el punto de reset es -50%,
-  que coincide exactamente con el ancho de 1 grupo.
-  La animación hace un loop perfecto sin salto.
+  LOOP PERFECTO:
+  El JS genera 4 grupos idénticos. La animación mueve -50%
+  (= 2 grupos). Cuando llega al punto de reset (-50%) las
+  posiciones 3 y 4 son visualmente idénticas a 1 y 2, así
+  que el salto es imperceptible.
+
+  Con solo 2 grupos y pocas cards el track puede ser tan
+  corto que la ventana muestra el hueco antes del reset.
+  Con 4 grupos hay siempre contenido llenando la pantalla.
 */
 
 .carousel-track {
@@ -219,7 +226,6 @@
     0 1px 4px rgba(var(--purple-mid-rgb), 0.08);
 }
 
-/* Glow interno */
 .card-glow {
   position: absolute;
   width: 260px;
@@ -232,7 +238,6 @@
   pointer-events: none;
 }
 
-/* Imagen de la mascota */
 .pet-carousel-card img {
   position: relative;
   width: 210px;
@@ -249,7 +254,6 @@
   transform: translateY(-8px) scale(1.04);
 }
 
-/* Nombre */
 .pet-carousel-card h3 {
   position: relative;
   z-index: 2;
@@ -260,7 +264,6 @@
   letter-spacing: -0.04em;
 }
 
-/* Botón "Conóceme" */
 .pet-card-btn {
   position: relative;
   z-index: 2;
@@ -282,7 +285,7 @@
   transform: translateY(-2px);
 }
 
-/* ── Fallback (sin imagen) ───────────────────────────────── */
+/* ── Fallback ────────────────────────────────────────────── */
 
 .pet-card-fallback {
   position: relative;
@@ -303,15 +306,11 @@
   margin-bottom: var(--space-4);
 }
 
-/* ── Placeholder card (sin mascotas aún) ─────────────────── */
+/* ── Placeholder card ────────────────────────────────────── */
 
-.pet-carousel-card--placeholder {
-  opacity: 0.85;
-}
+.pet-carousel-card--placeholder { opacity: 0.85; }
 
-.pet-carousel-card--placeholder h3 {
-  font-size: 1.4rem;
-}
+.pet-carousel-card--placeholder h3 { font-size: 1.4rem; }
 
 .pet-placeholder-text {
   position: relative;
@@ -323,22 +322,44 @@
   max-width: 200px;
 }
 
-/* ── Imagen decorativa fondo ─────────────────────────────── */
+/* ── banco.png ───────────────────────────────────────────── */
+/*
+  ESTRATEGIA DE POSICIONAMIENTO:
+  ─────────────────────────────────────────────────────────
+  .content-section tiene position: relative y padding-bottom: 260px.
+  .carrusel-bg es absolute, pegado al borde inferior de
+  .content-section (bottom: 0). Esto hace que:
+
+  • La imagen siempre quede exactamente en el borde inferior
+    de .content-section, que es también el borde superior
+    de .historia-section → banco toca la sección about.
+
+  • El margen de 260px en padding-bottom crea el espacio
+    para que la parte inferior de la imagen sea visible sin
+    que .historia-section la tape.
+
+  • z-index: 5 la pone por encima de las cards del carrusel
+    (z-index natural) sin romper el stacking de otras secciones.
+
+  El resultado es exactamente lo del original estático:
+  la mujer "sentada" asoma desde el carrusel y roza el borde
+  de la sección siguiente.
+*/
 
 .carrusel-bg {
-  display: block;
-  position: relative;
-  z-index: 5;
-  width: min(1100px, 110%);
+  position: absolute;
+  bottom: 0;               /* pegado al borde inferior de .content-section */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1100px, 100%);
   height: auto;
-  margin: -180px auto 0;
-  transform-origin: center bottom;
+  z-index: 5;
   will-change: transform;
   filter: drop-shadow(0 -14px 34px rgba(0, 0, 0, 0.10));
   pointer-events: none;
 }
 
-/* ── Keyframe carrusel ───────────────────────────────────── */
+/* ── Keyframe ────────────────────────────────────────────── */
 
 @keyframes infiniteCarousel {
   from { transform: translateX(0); }
@@ -350,7 +371,7 @@
 @media (max-width: 768px) {
 
   .content-section {
-    padding: var(--space-16) 0 0;
+    padding: var(--space-16) 0 180px; /* ← menos espacio en mobile */
   }
 
   .section-heading {
@@ -380,7 +401,7 @@
   }
 
   .carousel-wrapper {
-    padding-bottom: var(--space-24);
+    padding-bottom: var(--space-4);
   }
 
   .carousel-track {
@@ -408,14 +429,14 @@
 
   .carrusel-bg {
     width: 100vw;
-    margin: -120px 0 0 0;
-    left: 0;
-    transform: none;
-    position: relative;
   }
 }
 
 @media (max-width: 480px) {
+
+  .content-section {
+    padding-bottom: 120px;
+  }
 
   .pet-carousel-card {
     flex: 0 0 200px;
@@ -424,10 +445,6 @@
 
   .carousel-track {
     animation-duration: 22s;
-  }
-
-  .carrusel-bg {
-    margin: -80px 0 0 0;
   }
 }
 
