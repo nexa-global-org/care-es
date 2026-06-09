@@ -4,21 +4,25 @@ import { renderErrorScreen } from '../ui/screens.js';
 
 export const router = {
 
-  /**
-   * Navega a una ruta interna del tenant actual.
-   */
-  async navigateTo(subRoute = '/') {
+  async navigateTo(
+    subRoute = '/',
+    scrollTarget = null
+  ) {
 
     const route =
-      this.normalizeRoute(subRoute);
+      this.normalizeRoute(
+        subRoute
+      );
 
     const routeLoader =
       routes[route];
 
     if (!routeLoader) {
+
       return this.render404(
         `La ruta "${route}" no existe.`
       );
+
     }
 
     const moduleName =
@@ -31,16 +35,46 @@ export const router = {
         moduleName
       )
     ) {
+
       return this.render404(
         `El módulo "${moduleName}" no está habilitado para este refugio.`
       );
+
     }
 
     try {
 
       await routeLoader();
 
-      this.updateBrowserUrl(route);
+      this.updateBrowserUrl(
+        route
+      );
+
+      if (scrollTarget) {
+
+        requestAnimationFrame(() => {
+
+          setTimeout(() => {
+
+            const target =
+              document.getElementById(
+                scrollTarget
+              );
+
+            if (target) {
+
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+
+            }
+
+          }, 100);
+
+        });
+
+      }
 
     } catch (error) {
 
@@ -52,36 +86,38 @@ export const router = {
       this.render404(
         'Ocurrió un error al cargar esta sección.'
       );
+
     }
+
   },
 
-  /**
-   * Navegación SPA programática.
-   */
-  async go(route = '/') {
-    await this.navigateTo(route);
+  async go(
+    route = '/',
+    scrollTarget = null
+  ) {
+
+    await this.navigateTo(
+      route,
+      scrollTarget
+    );
+
   },
 
-  /**
-   * Normaliza cualquier ruta recibida.
-   *
-   * Ejemplos:
-   * "/pets/" -> "pets"
-   * "pets" -> "pets"
-   * "/" -> "/"
-   */
-  normalizeRoute(route = '/') {
+  normalizeRoute(
+    route = '/'
+  ) {
+
     return (
       route
         .replace(/^\/|\/$/g, '')
       || '/'
     );
+
   },
 
-  /**
-   * Actualiza la URL sin recargar.
-   */
-  updateBrowserUrl(route) {
+  updateBrowserUrl(
+    route
+  ) {
 
     const shelterId =
       state.shelterId;
@@ -107,19 +143,25 @@ export const router = {
       '',
       newUrl
     );
+
   },
 
-  /**
-   * Pantalla 404.
-   */
-  render404(message) {
-    renderErrorScreen(message);
+  render404(
+    message
+  ) {
+
+    renderErrorScreen(
+      message
+    );
+
   }
+
 };
 
-/**
- * Soporte para Atrás / Adelante.
- */
+/* ============================================================
+   ATRÁS / ADELANTE
+============================================================ */
+
 window.addEventListener(
   'popstate',
   () => {
@@ -136,18 +178,17 @@ window.addEventListener(
       || '/';
 
     router.navigateTo(route);
+
   }
 );
 
-/**
- * Navegación SPA mediante:
- *
- * <button data-route="pets">
- * <a data-route="shop">
- */
+/* ============================================================
+   NAVEGACIÓN SPA
+============================================================ */
+
 document.addEventListener(
   'click',
-  event => {
+  async event => {
 
     const element =
       event.target.closest(
@@ -163,6 +204,14 @@ document.addEventListener(
     const route =
       element.dataset.route;
 
-    router.go(route);
+    const scrollTarget =
+      element.dataset.scroll ||
+      null;
+
+    await router.go(
+      route,
+      scrollTarget
+    );
+
   }
 );

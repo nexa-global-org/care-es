@@ -1,29 +1,17 @@
-/* ============================================================
-   UI — navbar.js
-   Solo responsabilidad: generar el HTML del navbar.
-
-   El toggle hamburguesa lo inicializa effects/index.js
-   via initNavbar() accediendo al DOM directamente,
-   evitando imports circulares con el bundler.
-
-   Campos usados:
-     about.shelterName
-     about.shelterLogo
-     about.whatsappNumber
-============================================================ */
-
 import './navbar.css';
 
 export const NavbarUI = {
 
   render(about) {
 
-    const waLink = about.whatsappNumber
-      ? `https://wa.me/${about.whatsappNumber}`
-      : '#';
+    const waLink =
+      about.whatsappNumber
+        ? `https://wa.me/${about.whatsappNumber}`
+        : '#';
 
-    const logoImg = about.shelterLogo
-      ? `
+    const logoImg =
+      about.shelterLogo
+        ? `
           <img
             src="${about.shelterLogo}"
             alt="${about.shelterName}"
@@ -33,14 +21,26 @@ export const NavbarUI = {
             onerror="this.style.display='none'"
           >
         `
-      : '';
+        : '';
 
-    return `
-      <nav class="nav" id="nav">
+    return /* html */ `
+      <nav
+        class="nav"
+        id="nav"
+      >
 
-        <a href="#hero" class="nav-logo">
+        <a
+          href="#"
+          class="nav-logo"
+          data-route="shelter"
+        >
+
           ${logoImg}
-          <span class="nav-logo-name">${about.shelterName}</span>
+
+          <span class="nav-logo-name">
+            ${about.shelterName}
+          </span>
+
         </a>
 
         <button
@@ -48,28 +48,79 @@ export const NavbarUI = {
           id="navToggle"
           aria-label="Abrir menú"
           aria-expanded="false"
-        >☰</button>
+        >
+          ☰
+        </button>
 
-        <div class="nav-menu" id="navMenu">
+        <div
+          class="nav-menu"
+          id="navMenu"
+        >
 
           <ul class="nav-links">
-            <li><a href="#hero">Inicio</a></li>
-            <li><a href="#" data-route="pets">Adoptar</a></li>
-            <li><a href="#" data-route="shop">Tienda</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
+
             <li>
-              <a href="${waLink}" target="_blank" rel="noopener noreferrer">
+              <a
+                href="#"
+                data-route="shelter"
+              >
+                Inicio
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                data-route="pets"
+              >
+                Adoptar
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                data-route="shop"
+              >
+                Tienda
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                data-route="shelter"
+                data-scroll="nosotros"
+              >
+                Nosotros
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="${waLink}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Contacto
               </a>
             </li>
+
           </ul>
 
-          <a href="#donar" class="nav-donar">Donar 🤍</a>
+          <a
+            href="#"
+            class="nav-donar"
+            data-route="shelter"
+            data-scroll="donar"
+          >
+            Donar 🤍
+          </a>
 
         </div>
 
       </nav>
     `;
-  },
+  }
 
 };

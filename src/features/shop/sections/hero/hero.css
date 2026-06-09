@@ -83,7 +83,7 @@
 .shop-hero-badge-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--purple-200);        /* corregido: era --purple-40000 */
+  background: var(--purple-200);
   animation: heroPulse 2s ease-in-out infinite;
 }
 
@@ -184,6 +184,7 @@
 
 /* ─── Responsive ─── */
 
+/* Tablet: apila verticalmente */
 @media (max-width: 900px) {
   .shop-hero-inner {
     flex-direction: column;
@@ -191,10 +192,44 @@
     padding: var(--space-12) 5%;
     gap: var(--space-8);
   }
+
+  .shop-hero-img-wrap {
+    width: 220px;
+    height: 220px;
+  }
 }
 
+/* Móvil: imagen centrada y más pequeña debajo del texto */
 @media (max-width: 600px) {
-  .shop-hero-visual { display: none; }
-  .shop-hero-stats  { gap: var(--space-6); }
-  .shop-hero-inner  { padding: var(--space-10) 5% var(--space-8); }
+  .shop-hero-inner {
+    align-items: center;
+    padding: var(--space-10) 5% var(--space-8);
+  }
+
+  .shop-hero-text {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .shop-hero-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .shop-hero-stats {
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .shop-hero-visual {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .shop-hero-img-wrap {
+    width: 180px;
+    height: 180px;
+    border-radius: var(--radius-md);
+  }
 }

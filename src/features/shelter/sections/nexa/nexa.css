@@ -24,6 +24,11 @@
 .nexa-top-wave svg    { height: 90px; }
 .nexa-bottom-wave svg { height: 70px; }
 
+.nexa-bottom-wave {
+  color: var(--lavender-50);
+}
+
+
 .nexa-bg-shapes {
   position: absolute;
   inset: 0;

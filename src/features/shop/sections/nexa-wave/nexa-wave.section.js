@@ -8,12 +8,18 @@ import './nexa-wave.css';
 
 export function renderNexaWave() {
   return /* html */ `
-    <div class="nexa-bottom-wave" aria-hidden="true">
-      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"
-           xmlns="http://www.w3.org/2000/svg">
+    <div
+      class="nexa-bottom-wave"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 1440 70"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M0,70 L1440,70 L1440,40 Q1080,0 720,30 Q360,60 0,10 Z"
-          fill="#f5f0ff"
+          fill="currentColor"
         />
       </svg>
     </div>

@@ -85,7 +85,7 @@ export const FooterUI = {
                     `
                     : ''
                 }
-                <li><a href="#historia">Historias reales</a></li>
+                <li><a href=# data-route="shelter" data-scroll="historia">Historias reales</a></li>
               </ul>
             </div>
 
@@ -93,7 +93,7 @@ export const FooterUI = {
             <div class="footer-links-group">
               <h4>Apoya</h4>
               <ul>
-                <li><a href="#donar">Donar</a></li>
+                <li><a href=# data-route="shelter" data-scroll="donar">Donar</a></li>
                 <li><a href="#" data-route="shop">Tienda solidaria</a></li>
                 ${
                   about.volunteersForm
@@ -113,7 +113,7 @@ export const FooterUI = {
             <div class="footer-links-group">
               <h4>Nosotros</h4>
               <ul>
-                <li><a href="#nosotros">Nuestra historia</a></li>
+                <li><a href=# data-route="shelter" data-scroll="nosotros">Nuestra historia</a></li>
                 ${
                   phone
                     ? `

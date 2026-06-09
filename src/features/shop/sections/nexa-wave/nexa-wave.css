@@ -10,3 +10,7 @@
   height: 70px;
   display: block;
 }
+
+.nexa-bottom-wave {
+  color: var(--lavender-50);
+}
