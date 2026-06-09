@@ -1,0 +1,200 @@
+.shop-hero {
+  padding-top: 68px;
+  position: relative;
+  overflow: hidden;
+  min-height: 52vh;
+  display: flex;
+  align-items: center;
+  background: var(--off-white);
+}
+
+/* ─── Fondo decorativo ─── */
+
+.shop-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shop-hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.shop-hero-blob-1 {
+  width: 500px; height: 500px;
+  top: -120px; right: -100px;
+  background: var(--purple-bg-10);
+}
+
+.shop-hero-blob-2 {
+  width: 380px; height: 380px;
+  bottom: -80px; left: -80px;
+  background: var(--purple-bg-07);
+}
+
+.shop-hero-dots {
+  position: absolute;
+  top: 0; right: 0;
+  width: 320px; height: 320px;
+  opacity: 0.25;
+  background-image: radial-gradient(circle, rgba(var(--purple-rgb), 0.5) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at top right, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top right, black 30%, transparent 70%);
+}
+
+/* ─── Layout ─── */
+
+.shop-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: var(--container-lg);
+  margin: 0 auto;
+  padding: var(--space-16) 0 var(--space-12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.shop-hero-text { max-width: 580px; }
+
+/* ─── Badge ─── */
+
+.shop-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--purple-bg-08);
+  border: 1px solid var(--purple-border);
+  color: var(--purple-400);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+  animation: fadeUp 0.7s var(--ease) both;
+}
+
+.shop-hero-badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--purple-200);        /* corregido: era --purple-40000 */
+  animation: heroPulse 2s ease-in-out infinite;
+}
+
+/* ─── Título ─── */
+
+.shop-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-5);
+  animation: fadeUp 0.7s 0.1s var(--ease) both;
+}
+
+.shop-hero-title em {
+  font-style: italic;
+  font-weight: 300;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Subtítulo ─── */
+
+.shop-hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-8);
+  max-width: 480px;
+  animation: fadeUp 0.7s 0.2s var(--ease) both;
+}
+
+/* ─── Stats ─── */
+
+.shop-hero-stats {
+  display: flex;
+  gap: var(--space-8);
+  animation: fadeUp 0.7s 0.3s var(--ease) both;
+}
+
+.shop-hero-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.shop-hero-stat span {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* ─── Visual ─── */
+
+.shop-hero-visual {
+  flex-shrink: 0;
+  animation: fadeUp 0.9s 0.15s var(--ease) both;
+}
+
+.shop-hero-img-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.shop-hero-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--gradient-card-bg);
+}
+
+.shop-hero-img-badge {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-4xs);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 900px) {
+  .shop-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-12) 5%;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 600px) {
+  .shop-hero-visual { display: none; }
+  .shop-hero-stats  { gap: var(--space-6); }
+  .shop-hero-inner  { padding: var(--space-10) 5% var(--space-8); }
+}
