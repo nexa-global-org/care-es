@@ -34,7 +34,7 @@
 .pets-hero-blob-2 {
   width: 380px; height: 380px;
   bottom: -80px; left: -80px;
-  background: var(--purple-bg-07); 
+  background: var(--purple-bg-07);
 }
 
 .pets-hero-dots {
@@ -63,7 +63,7 @@
 
 /* ── Texto ── */
 .pets-hero-text {
-    max-width: 580px;
+  max-width: 580px;
 }
 
 .pets-hero-badge {
@@ -88,11 +88,6 @@
   border-radius: 50%;
   background: var(--purple-200);
   animation: heroPulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.75); }
 }
 
 .pets-hero-title {
@@ -125,9 +120,7 @@
 }
 
 /* ── Stats ── */
-
-
-.pets-hero-stat {
+.pets-hero-stats {
   display: flex;
   gap: var(--space-8);
   animation: fadeUp 0.7s 0.3s var(--ease) both;
@@ -186,9 +179,8 @@
   color: var(--text-primary);
 }
 
-/* ─── Responsive ─── */
+/* ── Responsive ── */
 
-/* Tablet: apila verticalmente */
 @media (max-width: 900px) {
   .pets-hero-inner {
     flex-direction: column;
@@ -203,7 +195,6 @@
   }
 }
 
-/* Móvil: imagen centrada y más pequeña debajo del texto */
 @media (max-width: 600px) {
   .pets-hero-inner {
     align-items: center;
