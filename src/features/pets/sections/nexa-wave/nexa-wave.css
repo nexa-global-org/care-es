@@ -1,0 +1,16 @@
+.nexa-bottom-wave {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  margin-top: -2px;
+}
+
+.nexa-bottom-wave svg {
+  width: 100%;
+  height: 70px;
+  display: block;
+}
+
+.nexa-bottom-wave {
+  color: var(--lavender-50);
+}
