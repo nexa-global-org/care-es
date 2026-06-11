@@ -1,11 +1,13 @@
-
+/* ============================================================
+   main.js
+============================================================ */
 import '../ui/styles/variables.css';
 import '../ui/styles/global.css';
 import '../ui/styles/animations.css';
 import '../ui/styles/utilities.css';
 import '../ui/styles/button.css';
 
-import { state } from '../core/state.js';
+import { state }  from '../core/state.js';
 import { router } from '../core/router.js';
 import { bootstrap } from './bootstrap.js';
 
@@ -16,6 +18,8 @@ import {
   validateTenant,
   isTenantInMaintenance
 } from '../config/tenant.service.js';
+
+import { applyTenantBranding } from '../config/branding.service.js';
 
 import {
   renderErrorScreen,
@@ -42,6 +46,11 @@ async function initApp() {
     }
 
     state.setShelter(tenant);
+
+    /* Aplica la paleta del refugio antes de montar la UI.
+       Si el tenant no tiene branding.accentColor no hace nada
+       y las variables de variables.css quedan intactas. */
+    applyTenantBranding(tenant);
 
     bootstrap.init();
 

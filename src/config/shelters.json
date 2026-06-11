@@ -6,6 +6,7 @@
   },
 
   "tenants": {
+
     "salvando-patitas": {
       "id": "salvando-patitas",
       "name": "Salvando Patitas",
@@ -15,13 +16,7 @@
       },
 
       "branding": {
-        "--brand-primary-300": "#2ecc71",
-        "--brand-primary-400": "#27ae60",
-        "--brand-primary-500": "#1e8449",
-
-        "--brand-light-50": "#e8f8f5",
-        "--brand-light-100": "#e8f8f5",
-        "--brand-light-300": "#e8f8f5"
+        "accentColor": "#6d4cff"
       },
 
       "modules": {
@@ -33,6 +28,72 @@
       "settings": {
         "maintenance": false
       }
+    },
+
+    "huellitas-felices": {
+      "id": "huellitas-felices",
+      "name": "Huellitas Felices",
+
+      "spreadsheet": {
+        "id": "SPREADSHEET_ID_AQUI"
+      },
+
+      "branding": {
+        "accentColor": "#ff6b6b"
+      },
+
+      "modules": {
+        "shelter": true,
+        "pets": true,
+        "shop": false
+      },
+
+      "settings": {
+        "maintenance": false
+      }
+    },
+
+    "refugio-verde": {
+      "id": "refugio-verde",
+      "name": "Refugio Verde",
+
+      "spreadsheet": {
+        "id": "SPREADSHEET_ID_AQUI"
+      },
+
+      "branding": {
+        "accentColor": "#2ecc71"
+      },
+
+      "modules": {
+        "shelter": true,
+        "pets": true,
+        "shop": true
+      },
+
+      "settings": {
+        "maintenance": false
+      }
+    },
+
+    "patitas-sin-branding": {
+      "id": "patitas-sin-branding",
+      "name": "Patitas Sin Branding",
+
+      "spreadsheet": {
+        "id": "SPREADSHEET_ID_AQUI"
+      },
+
+      "modules": {
+        "shelter": true,
+        "pets": true,
+        "shop": false
+      },
+
+      "settings": {
+        "maintenance": false
+      }
     }
+
   }
 }

@@ -1,3 +1,7 @@
+/* ============================================================
+   tenant.service.js
+============================================================ */
+
 import sheltersData from './shelters.json';
 
 export function getTenantBySlug(slug) {
