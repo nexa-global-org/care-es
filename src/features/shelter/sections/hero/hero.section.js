@@ -70,7 +70,8 @@ export function renderHero(about) {
         <div class="hero-actions">
 
           <a
-            href="/pets"
+            href="#"
+            data-route="pets"
             class="btn-primary"
           >
             Ver mascotas en adopción ↗
