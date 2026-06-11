@@ -5,38 +5,22 @@
 /* ── Sección contenedor ──────────────────────────────────── */
 
 .content-section {
-  position: relative;         /* contexto para .carrusel-bg absolute */
+  position: relative;
   width: 100%;
   padding: var(--space-20) 0 0;
-
-  /*
-    overflow: visible (NO clip ni hidden) para que las sombras
-    de las cards no se recorten en el borde inferior.
-    Los fades laterales del carrusel se aplican en
-    .carousel-wrapper que sí tiene overflow:hidden, así que
-    el recorte lateral sigue funcionando correctamente.
-  */
   overflow: visible;
-
   background: var(--white);
 
   /*
-    ── CONTROLA CUÁNTO SUBE banco.png ──────────────────────
-    padding-bottom reserva espacio vacío al final de la sección.
-    banco.png se posiciona con bottom: var(--banco-offset) que
-    es un valor NEGATIVO, empujándola hacia abajo (hacia about).
+    --banco-visible : cuánto espacio reservar para que banco
+                      asome sobre .historia-section.
+    --banco-offset  : valor negativo → empuja banco hacia abajo
+                      del borde inferior de .content-section.
 
-    La cantidad visible de banco sobre el borde de about es:
-      padding-bottom − |banco-offset|
-
-    Ejemplo con los valores por defecto:
-      280px − 120px = 160px de banco visibles sobre about.
-
-    Para que banco suba más → aumenta --banco-visible
-    Para que banco baje más → disminuye --banco-visible
-    ──────────────────────────────────────────────────────── */
+    Espacio visible sobre historia = banco-visible − |banco-offset|
+  */
   --banco-visible: 360px;
-  --banco-offset: -10px;   /* ← AJUSTA AQUÍ qué tan abajo dentro de about */
+  --banco-offset: -10px;
 
   padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
 }
@@ -146,17 +130,9 @@
 .carousel-wrapper {
   position: relative;
   width: 100%;
-
-  /*
-    overflow: hidden aquí recorta solo lateralmente (los fades).
-    padding-bottom da aire para que las sombras inferiores de
-    las cards no se corten contra el borde del wrapper.
-  */
   overflow: hidden;
   padding: var(--space-12) 0 var(--space-16);
 }
-
-
 
 /* ── Carousel track ──────────────────────────────────────── */
 
@@ -188,7 +164,7 @@
   flex: 0 0 290px;
   height: 390px;
   border-radius: var(--radius-2xl);
-  overflow: visible;          /* sombras visibles */
+  overflow: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -292,7 +268,6 @@
 /* ── Placeholder card ────────────────────────────────────── */
 
 .pet-carousel-card--placeholder { opacity: 0.85; }
-
 .pet-carousel-card--placeholder h3 { font-size: 1.4rem; }
 
 .pet-placeholder-text {
@@ -307,53 +282,37 @@
 
 /* ── banco.png ───────────────────────────────────────────── */
 /*
-  STACK DE Z-INDEX:
-  ─────────────────────────────────────────────────────────
-  Cards del carrusel  → z-index: auto (flujo normal)
-  banco.png           → z-index: 2   ← se ve sobre las cards
-  .historia-section   → z-index: 3   ← se ve sobre banco
-  (historia-section necesita position:relative + z-index:3
-   que está definido en about.css / styles.css)
+  DESKTOP (base): imagen centrada, ancho máximo 1100px.
+  Se ancla con bottom negativo para asomarse sobre historia.
 
-  POSICIONAMIENTO VERTICAL:
-  ─────────────────────────────────────────────────────────
-  banco.png es absolute dentro de .content-section.
-  bottom: var(--banco-offset) la empuja hacia ABAJO del
-  borde inferior de .content-section (valor negativo = baja).
+  MOBILE: se agranda a 160vw para mostrar la parte central
+  (banco + personajes) sin cortar, y bottom fijo pequeño
+  para rozar el borde inferior de las cards sin taparlas.
 
-  Cuánto sube banco sobre la sección about:
-    padding-bottom de .content-section − |banco-offset|
-    = var(--banco-visible)  (definida arriba, por defecto 160px)
-
-  ── PARA AJUSTAR LA ALTURA DE BANCO ─────────────────────
-  Modifica --banco-visible y --banco-offset en .content-section
-  (al inicio de este archivo). No toques nada aquí abajo.
-  ─────────────────────────────────────────────────────────
+  object-fit: contain + width proporcional = escala uniforme
+  sin saltos ni recortes bruscos en ningún breakpoint.
 */
-
 .carrusel-bg {
   position: absolute;
-  bottom: var(--banco-offset);     /* valor negativo → baja hacia about */
+  bottom: var(--banco-offset);
   left: 50%;
   transform: translateX(-50%);
+
+  /* Desktop: cabe completa dentro de la sección */
   width: min(1100px, 100%);
   height: auto;
-  z-index: 2;                      /* sobre cards, bajo historia-section */
+
+  z-index: 2;
   will-change: transform;
   filter: drop-shadow(0 -14px 34px rgba(0, 0, 0, 0.10));
   pointer-events: none;
 }
 
-/* ── historia-section debe ganar el z-index ─────────────── */
-/*
-  Para que about tape a banco, historia-section necesita
-  apilarse por encima. Si tu about.css ya define esto,
-  puedes borrar este bloque. Si no, déjalo aquí.
-*/
+/* ── historia-section gana el z-index sobre banco ── */
 .historia-section {
   position: relative;
   z-index: 3;
-  overflow: visible;  /* banco.png puede asomarse desde adoption */
+  overflow: visible;
 }
 
 /* ── Keyframe ────────────────────────────────────────────── */
@@ -365,12 +324,22 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 
-@media (max-width: 768px) {
+/*
+  Tablet (≤ 900px): imagen más ancha que el viewport para
+  preservar el ratio y mostrar el centro (banco + personas).
+  bottom sube levemente para mantener la relación visual.
+*/
+@media (max-width: 900px) {
 
   .content-section {
-    --banco-visible: 180px;
+    --banco-visible: 260px;
     --banco-offset: -10px;
-    padding-bottom: 60px; /* banco-visible + |banco-offset| directo */
+    padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
+  }
+
+  .carrusel-bg {
+    width: 130vw;           /* más ancho que la pantalla → se centra y no recorta lo importante */
+    bottom: -10px;          /* roza el borde inferior del carousel-wrapper */
   }
 
   .section-heading {
@@ -425,32 +394,44 @@
   .pet-carousel-card h3 {
     font-size: 1.7rem;
   }
+}
+
+/*
+  Mobile (≤ 600px): imagen más ancha aún para que la parte
+  central (banco + personas) llene la pantalla.
+  bottom fijo pequeño → apenas roza las cards sin cubrirlas.
+*/
+@media (max-width: 600px) {
+
+  .content-section {
+    --banco-visible: 200px;
+    --banco-offset: -10px;
+    padding-bottom: calc(var(--banco-visible) + abs(var(--banco-offset)));
+  }
 
   .carrusel-bg {
-    width: 100vw;
-    bottom: -30px;         /* sube hacia las cards */
+    width: 160vw;     /* la parte central siempre visible; los extremos se salen del viewport */
+    bottom: -10px;    /* roza el borde de las cards, no las tapa */
+  }
+
+  .carousel-track {
+    animation-duration: 22s;
   }
 }
 
-@media (max-width: 480px) {
+/*
+  Mobile pequeño (≤ 400px): ajuste fino para pantallas muy estrechas.
+*/
+@media (max-width: 400px) {
 
-  .content-section {
-    --banco-visible: 120px;
-    --banco-offset: -10px;
-    padding-bottom: 50px;
+  .carrusel-bg {
+    width: 180vw;
+    bottom: -8px;
   }
 
   .pet-carousel-card {
     flex: 0 0 200px;
     height: 300px;
-  }
-
-  .carrusel-bg {
-    bottom: -20px;
-  }
-
-  .carousel-track {
-    animation-duration: 22s;
   }
 }
 
