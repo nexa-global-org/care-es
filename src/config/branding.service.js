@@ -60,51 +60,75 @@ export function applyTenantBranding(tenant) {
 ============================================================ */
 
 function buildFullPalette({ h, s, l }) {
-  /* ── 1. Saturación anclada para consistencia visual ── */
-  const sat = clamp(s, 45, 88);
+  /*
+    ── Filosofía de generación ──────────────────────────────
+    El accentColor del refugio se usa DIRECTAMENTE como -400
+    (el tono principal de botones y acentos). No se clampea
+    su saturación ni su luminosidad base para no apagarlo.
 
-  /* ── 2. Tonos base (purple-*) ── */
-  const l200 = clamp(l + 38, 78, 94);
-  const l300 = clamp(l + 18, 58, 76);
-  const l400 = clamp(l,      35, 65);   // accentColor tal cual
-  const l500 = clamp(l - 15, 20, 50);
+    Los demás tonos se derivan ajustando solo L:
+      -200 → muy claro (fondos, badges)
+      -300 → semiaclaro (iconos, textos secundarios)
+      -400 → el color exacto del refugio  ← sin tocar
+      -500 → oscuro (hover, contraste)
+
+    La saturación solo se sube levemente si viene muy baja
+    (colores casi grises) para garantizar que haya tinte visible.
+  */
+
+  /* ── 1. Saturación: solo forzamos un mínimo perceptible ── */
+  const sat = Math.max(s, 55);   // si viene >55% se respeta tal cual
+
+  /* ── 2. Tonos base — L del accentColor se preserva en -400 ── */
+  const l400 = l;                          // exactamente el color configurado
+  const l200 = clamp(l + 42, 82, 96);     // muy claro, legible sobre blanco
+  const l300 = clamp(l + 20, 62, 78);     // semiaclaro
+  const l500 = clamp(l - 18, 18, 48);     // oscuro para hover
 
   const hex200 = hslToHex(h, sat, l200);
   const hex300 = hslToHex(h, sat, l300);
-  const hex400 = hslToHex(h, sat, l400);
+  const hex400 = hslToHex(h, sat, l400);  // accentColor sin modificar
   const hex500 = hslToHex(h, sat, l500);
 
-  /* RGB channels para los tres roles */
-  const rgb400  = hexToRgb(hex400);                           // --purple-rgb
-  const rgbDark = hexToRgb(hslToHex(h, clamp(sat, 45, 70), clamp(l400 - 22, 18, 45)));  // --purple-dark-rgb
-  const rgbMid  = hexToRgb(hslToHex(h, sat, clamp(l400 + 8, 40, 68)));                  // --purple-mid-rgb
+  /* ── 3. Canales RGB para sombras y rgba() ── */
+  const rgb400  = hexToRgb(hex400);
+  const rgbDark = hexToRgb(hslToHex(h, Math.min(sat, 75), clamp(l400 - 20, 15, 42)));
+  const rgbMid  = hexToRgb(hslToHex(h, sat, clamp(l400 + 10, 42, 70)));
 
-  const pRgb  = `${rgb400.r}, ${rgb400.g}, ${rgb400.b}`;
-  const dRgb  = `${rgbDark.r}, ${rgbDark.g}, ${rgbDark.b}`;
-  const mRgb  = `${rgbMid.r}, ${rgbMid.g}, ${rgbMid.b}`;
+  const pRgb = `${rgb400.r}, ${rgb400.g}, ${rgb400.b}`;
+  const dRgb = `${rgbDark.r}, ${rgbDark.g}, ${rgbDark.b}`;
+  const mRgb = `${rgbMid.r}, ${rgbMid.g}, ${rgbMid.b}`;
 
-  /* ── 3. Lavender (fondos suaves — saturación muy baja) ── */
-  const lavSat = clamp(sat * 0.18, 8, 22);   // casi gris con tinte del color
+  /* ── 4. Lavender (fondos suaves) ─────────────────────────
+     Saturación muy baja para que sea sutil pero con tinte.
+     Se mantiene proporcional al sat original para que colores
+     muy saturados (verde, rojo) no produzcan fondos chillones. */
+  const lavSat = clamp(sat * 0.15, 6, 20);
 
-  const lav50  = hslToHex(h, lavSat, 98);
-  const lav100 = hslToHex(h, lavSat, 96);
-  const lav200 = hslToHex(h, lavSat, 93);
-  const lav300 = hslToHex(h, lavSat, 96);   // mismo uso que lavender-300 original
-  const lav400 = hslToHex(h, lavSat, 97);
+  const lav50  = hslToHex(h, lavSat, 98.5);
+  const lav100 = hslToHex(h, lavSat, 96.5);
+  const lav200 = hslToHex(h, lavSat, 93.5);
+  const lav300 = hslToHex(h, lavSat, 96);
+  const lav400 = hslToHex(h, lavSat, 97.5);
 
-  const offWhite = hslToHex(h, clamp(lavSat * 0.7, 4, 12), 99);
+  const offWhite = hslToHex(h, clamp(lavSat * 0.6, 3, 10), 99);
 
-  /* ── 4. Gradientes ── */
+  /* ── 5. Gradientes ── */
+  /*
+    --gradient-primary usa -200 → -400 para que arranque
+    del tono claro y llegue al color del refugio, igual que
+    el gradiente morado original (#9146ff → #6d4cff).
+  */
   const gradPrimary  = `linear-gradient(135deg, ${hex200}, ${hex400})`;
   const gradPrimary2 = `linear-gradient(135deg, ${hex300}, ${hex500})`;
   const gradLavender = `linear-gradient(150deg, ${offWhite} 0%, ${lav300} 50%, ${lav400} 100%)`;
   const gradDonar    = `linear-gradient(170deg, ${offWhite} 0%, ${lav100} 40%, ${lav200} 70%, ${lav50} 100%)`;
-  const gradCardBg   = `linear-gradient(160deg, ${hslToHex(h, lavSat * 1.4, 95)} 0%, ${hslToHex(h, lavSat * 1.6, 92)} 55%, ${hslToHex(h, lavSat * 1.2, 94)} 100%)`;
+  const gradCardBg   = `linear-gradient(160deg, ${hslToHex(h, lavSat * 1.5, 95)} 0%, ${hslToHex(h, lavSat * 1.8, 92)} 55%, ${hslToHex(h, lavSat * 1.2, 94)} 100%)`;
 
-  /* ── 5. Opacidades compuestas ── */
+  /* ── 6. Opacidades compuestas ── */
   const bg = (a) => `rgba(${pRgb}, ${a})`;
 
-  /* ── 6. Sombras ── */
+  /* ── 7. Sombras ── */
   const sd = (a) => `rgba(${dRgb}, ${a})`;
   const sm = (a) => `rgba(${mRgb}, ${a})`;
 
