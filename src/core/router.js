@@ -62,7 +62,9 @@ export const router = {
   },
 
   normalizeRoute(route = '/') {
-    return route.replace(/^\/|\/$/g, '') || '/';
+    const clean = route.replace(/^\/|\/$/g, '') || '/';
+    /* 'shelter' es el alias público de la ruta raíz '/' */
+    return clean === 'shelter' ? '/' : clean;
   },
 
   updateBrowserUrl(route) {
